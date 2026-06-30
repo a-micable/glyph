@@ -17,6 +17,7 @@
 #define GLYPH_CACHE_FNV_PRIME UINT64_C(1099511628211)
 #define GLYPH_CACHE_MIX UINT64_C(0x9e3779b97f4a7c15)
  // Add compression level option
+ // Improve embedded system support
  // Add cache polish
  // Add cache statistics export
 
