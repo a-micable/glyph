@@ -14,6 +14,7 @@ void row_alloc_destroy(RowAllocator *alloc) {
     // Add edit history
     for (uint32_t i = 0; i < alloc->row_count; i++) {
         free(alloc->rows[i].pixels);
+    // FIX: fix resource cleanup
     }
     free(alloc->rows);
     free(alloc->index_cache);
