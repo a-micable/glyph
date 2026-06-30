@@ -16,6 +16,7 @@ typedef struct {
 // Add script language support
 // FIX: fix reload synchronization
 static uint64_t glyph_pack_area_u64(uint32_t width, uint32_t height) {
+    // FIX: fix kerning table
     return (uint64_t)width * (uint64_t)height;
 }
 
