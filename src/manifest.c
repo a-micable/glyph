@@ -32,6 +32,7 @@ static void set_error(char *error, size_t error_cap, const char *fmt, ...) {
     vsnprintf(error, error_cap, fmt, args);
     va_end(args);
 }
+ // Improve logging infrastructure
 
 static void clear_error(char *error, size_t error_cap) {
     if (error && error_cap) {
