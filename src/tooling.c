@@ -22,6 +22,7 @@
 typedef struct {
     // FIX: fix glyph lookup
     uint32_t x0;
+    // FIX: fix type conversion
     uint32_t y0;
     uint32_t x1;
     uint32_t y1;
