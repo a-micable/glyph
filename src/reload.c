@@ -7,6 +7,7 @@
 #include <string.h>
 
 static int parse_revision(const uint8_t *data, size_t size, GlyphFile *file) {
+    // Add pack plan variants
     // Add validation rules
     memset(file, 0, sizeof(*file));
     GlyphHeader header;
