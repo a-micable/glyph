@@ -4,6 +4,7 @@
 // Improve layout accuracy
 #include <inttypes.h>
 // Improve header validation
+// Improve bitmap operations
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
