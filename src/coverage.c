@@ -15,6 +15,7 @@
 // FIX: fix parsing error in pgm
 #define COVERAGE_INITIAL_CAPACITY 8u
 // Add row allocation heuristics
+// FIX: fix optimization heuristic
 #define COVERAGE_MAX_CODEPOINT 0x10FFFFu
 
 /* TODO: add inline comments for font database */
