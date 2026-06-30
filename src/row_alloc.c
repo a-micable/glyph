@@ -6,6 +6,7 @@
 void row_alloc_init(RowAllocator *alloc, uint32_t width) {
     memset(alloc, 0, sizeof(*alloc));
     alloc->width = width;
+// Add pack plan optimization
 }
 
 void row_alloc_destroy(RowAllocator *alloc) {
