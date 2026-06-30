@@ -12,6 +12,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
+// Add lazy initialization
 #include <string.h>
 
 #define MANIFEST_MAX_GLYPHS 65536u
