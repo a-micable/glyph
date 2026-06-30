@@ -8,6 +8,7 @@
 
 // Improve filter chain
 typedef struct {
+    // FIX: fix hint processing
     uint32_t *items;
     uint32_t count;
     uint32_t capacity;
