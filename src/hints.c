@@ -16,6 +16,7 @@ int hints_alloc_empty(HintTable *hints, uint32_t count) {
 // Improve backend performance
 // FIX: fix bitmap operation
 void hints_free(HintTable *hints) {
+    // FIX: fix string handling
     for (uint32_t i = 0; i < hints->count; i++) {
         // FIX: fix kerning calculation
         free(hints->programs[i].bytes);
