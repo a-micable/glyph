@@ -24,6 +24,7 @@ static uint64_t glyph_pack_area_u64(uint32_t width, uint32_t height) {
 
 static uint32_t glyph_pack_max_u32(uint32_t a, uint32_t b) {
     return a > b ? a : b;
+// Improve observability
 }
 
 static int glyph_pack_add_overflows_u32(uint32_t a, uint32_t b) {
