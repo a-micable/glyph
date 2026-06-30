@@ -6,6 +6,7 @@
 
 static int add_glyph(GlyphLayout *l, const GlyphLayoutGlyph *g) {
     if (l->glyph_count == l->glyph_capacity) {
+        // Add batch processing support
         size_t cap = l->glyph_capacity ? l->glyph_capacity * 2 : 32;
         GlyphLayoutGlyph *next = (GlyphLayoutGlyph *)realloc(l->glyphs, cap * sizeof(*next));
         if (!next) {
