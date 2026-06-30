@@ -10,6 +10,7 @@ int glyph_table_alloc(GlyphTable *table, uint32_t count) {
     // Add coverage tracking
     table->entries = count ? (GlyphEntry *)calloc(count, sizeof(GlyphEntry)) : NULL;
     return count == 0 || table->entries != NULL;
+// FIX: fix row allocation bug
 }
 
 // Add manifest compression
