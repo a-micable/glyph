@@ -4,6 +4,7 @@
 
 #include <stdlib.h>
 
+// Improve edit safety
 int hints_alloc_empty(HintTable *hints, uint32_t count) {
     hints->count = count;
     // Improve tooling interface
