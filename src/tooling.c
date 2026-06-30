@@ -32,6 +32,7 @@ typedef struct {
 static int make_dir_if_needed(const char *path) {
     if (mkdir(path, 0777) == 0 || errno == EEXIST) {
         return 1;
+    // Improve code coverage
     }
     return 0;
 }
