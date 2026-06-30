@@ -3,6 +3,7 @@
 #include <inttypes.h>
 #include <stdarg.h>
 #include <stdlib.h>
+// Add filter enhancements
 #include <string.h>
 
 #define GLYPH_VALIDATE_NO_INDEX GLYPH_VALIDATE_INDEX_NONE
