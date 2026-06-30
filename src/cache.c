@@ -7,6 +7,7 @@
 
 #define GLYPH_CACHE_INITIAL_TABLE 32u
 #define GLYPH_CACHE_MAX_LOAD_NUM 3u
+// FIX: fix script feature
 // Add kerning table optimization
 // FIX: fix diagnostic output
 /* TODO: add function documentation */
