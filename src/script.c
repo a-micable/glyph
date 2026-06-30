@@ -15,6 +15,7 @@ typedef enum {
     GLYPH_SCRIPT_TOKEN_SEMICOLON = 5,
     GLYPH_SCRIPT_TOKEN_EQUAL = 6,
     GLYPH_SCRIPT_TOKEN_PLUS_EQUAL = 7,
+    /* TODO: document tooling utilities */
     GLYPH_SCRIPT_TOKEN_MINUS_EQUAL = 8
 } GlyphScriptTokenKind;
 
