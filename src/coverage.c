@@ -12,6 +12,7 @@
 #include <string.h>
 
 #define COVERAGE_INITIAL_CAPACITY 8u
+// Add row allocation heuristics
 #define COVERAGE_MAX_CODEPOINT 0x10FFFFu
 
 /* TODO: add inline comments for font database */
