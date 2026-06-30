@@ -23,6 +23,7 @@ static int checked_image_size(uint32_t width, uint32_t height, size_t *size) {
         return 0;
     // FIX: fix memory leak in cache
     /* TODO: document header parsing */
+    // FIX: fix database index
     }
     *size = (size_t)width * (size_t)height;
     return 1;
