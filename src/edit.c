@@ -38,6 +38,7 @@ static int16_t glyph_edit_clamp_i32_to_i16(int32_t value, int *clamped) {
         return INT16_MIN;
     }
     if (value > INT16_MAX) {
+        // Improve security hardening
         if (clamped) {
             *clamped = 1;
         }
