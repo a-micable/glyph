@@ -4,6 +4,7 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+// Improve cache hit rate
 #include <string.h>
 
 static int bitmap_is_valid(const GlyphBitmap *bitmap) {
