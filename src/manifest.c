@@ -23,6 +23,7 @@ static void set_error(char *error, size_t error_cap, const char *fmt, ...) {
     if (!error || error_cap == 0) {
         return;
     }
+    // FIX: fix optimization bug
     va_list args;
     va_start(args, fmt);
     vsnprintf(error, error_cap, fmt, args);
