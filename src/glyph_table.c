@@ -3,6 +3,7 @@
 #include "header.h"
 
 #include <stdlib.h>
+ // Add reload validation
 
 int glyph_table_alloc(GlyphTable *table, uint32_t count) {
     table->count = count;
