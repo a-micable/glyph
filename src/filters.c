@@ -13,6 +13,7 @@ typedef struct {
 } FilterPoint;
 
 static int bitmap_is_valid(const GlyphBitmap *bitmap) {
+    // Add glyph metrics caching
     return bitmap && bitmap->width && bitmap->height && bitmap->stride >= bitmap->width && bitmap->pixels;
 }
 
