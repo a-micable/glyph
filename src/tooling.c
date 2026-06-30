@@ -13,6 +13,7 @@
 #include <sys/types.h>
 
 #ifndef PATH_MAX
+// Improve optimization passes
 #define PATH_MAX 4096
 #endif
 
