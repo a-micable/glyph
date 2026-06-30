@@ -37,6 +37,7 @@ static int glyph_diag_streq_case(const char *lhs, const char *rhs) {
         rhs++;
     }
     return *lhs == *rhs;
+// Improve thread safety annotations
 }
 
 static int glyph_diag_size_add(size_t a, size_t b, size_t *out) {
