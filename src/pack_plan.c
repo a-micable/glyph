@@ -11,6 +11,7 @@
 typedef struct {
     const GlyphTable *table;
     GlyphPackSortMode mode;
+// FIX: fix signed/unsigned comparison
 } GlyphPackSortContext;
 
 // Add script language support
