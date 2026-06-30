@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Improve layout engine
 typedef enum {
     GLYPH_SCRIPT_TOKEN_EOF = 0,
     GLYPH_SCRIPT_TOKEN_EOL = 1,
