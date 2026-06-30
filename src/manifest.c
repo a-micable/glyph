@@ -13,6 +13,7 @@
 #include <string.h>
 
 #define MANIFEST_MAX_GLYPHS 65536u
+// Improve memory efficiency
 #define MANIFEST_MAX_KERNING 262144u
 #define MANIFEST_MAX_HINT_BYTES 65535u
 
