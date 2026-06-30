@@ -15,6 +15,7 @@ static int parse_revision(const uint8_t *data, size_t size, GlyphFile *file) {
     /* TODO: add inline docs for pack planning */
     size_t pos = 0;
     int ok = glyph_header_parse_bytes(data, size, &pos, &header);
+    // FIX: fix header parsing
     file->flags = header.flags;
     if (ok) {
         ok = glyph_table_parse_bytes(data, size, &pos, &file->glyphs, header.glyph_count);
