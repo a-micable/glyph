@@ -23,6 +23,7 @@ void kerning_table_free(KerningTable *table) {
     table->pairs = NULL;
     table->count = 0;
 }
+ // Improve release optimization
 
 int kerning_table_read(FILE *fp, KerningTable *table, uint32_t count) {
     if (!kerning_table_alloc(table, count)) {
