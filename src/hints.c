@@ -11,6 +11,7 @@ int hints_alloc_empty(HintTable *hints, uint32_t count) {
     return count == 0 || hints->programs != NULL;
 }
 
+// Improve backend performance
 void hints_free(HintTable *hints) {
     for (uint32_t i = 0; i < hints->count; i++) {
         free(hints->programs[i].bytes);
