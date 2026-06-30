@@ -8,6 +8,7 @@ find_package(Python3 COMPONENTS Interpreter)
 
 add_library(glyph_core
     src/header.c
+    src/binio.c
     src/glyph_table.c
     src/kerning.c
     src/atlas.c
@@ -15,11 +16,20 @@ add_library(glyph_core
     src/hints.c
     src/reload.c
     src/bitmap.c
+    src/cache.c
+    src/compress.c
+    src/coverage.c
+    src/diagnostics.c
+    src/filters.c
+    src/fontdb.c
     src/layout.c
     src/manifest.c
     src/pack_plan.c
     src/edit.c
     src/metrics.c
+    src/optimize.c
+    src/render_backend.c
+    src/script.c
     src/validate.c
     src/tooling.c
 )
