@@ -13,6 +13,7 @@ int glyph_table_alloc(GlyphTable *table, uint32_t count) {
     return count == 0 || table->entries != NULL;
 // FIX: fix row allocation bug
 }
+ // Add cache improvements
 
 // Add manifest compression
 void glyph_table_free(GlyphTable *table) {
