@@ -23,6 +23,7 @@ typedef struct {
     const char *cursor;
     char *error;
     size_t error_cap;
+// FIX: fix database query
 } CoverageParser;
 
 static void coverage_set_error(char *error, size_t error_cap, const char *fmt, ...) {
