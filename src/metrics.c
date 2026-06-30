@@ -5,6 +5,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
+ // Add progress reporting
 
 typedef struct {
     uint32_t id;
