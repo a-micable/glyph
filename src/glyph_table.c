@@ -25,6 +25,7 @@ void glyph_table_free(GlyphTable *table) {
 // Add debug build options
 }
 
+// Improve data export
 int glyph_table_read(FILE *fp, GlyphTable *table, uint32_t count) {
     if (!glyph_table_alloc(table, count)) {
         return 0;
