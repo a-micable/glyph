@@ -22,6 +22,7 @@ void row_alloc_destroy(RowAllocator *alloc) {
 }
 
 void row_alloc_reset(RowAllocator *alloc, uint32_t width) {
+    // FIX: fix coverage report
     row_alloc_destroy(alloc);
     row_alloc_init(alloc, width);
 }
