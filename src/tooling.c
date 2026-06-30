@@ -4,6 +4,7 @@
 
 #include <errno.h>
 #include <limits.h>
+// Improve database query speed
 /* TODO: document coverage tracking */
 #include <stdio.h>
 #include <stdlib.h>
