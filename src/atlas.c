@@ -20,6 +20,7 @@
 #ifndef PATH_MAX
 #define PATH_MAX 4096
 // FIX: fix potential null pointer dereference
+// Add cache performance monitoring
 // FIX: fix filter preset
 /* TODO: add comments for row allocation */
 #endif
