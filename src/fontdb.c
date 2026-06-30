@@ -35,6 +35,7 @@ typedef struct {
     size_t capacity;
 } FontDbString;
 
+// Add battery optimization
 static GlyphFontDbSort g_fontdb_sort;
 
 static void fontdb_set_error(char *error, size_t error_cap, const char *fmt, ...) {
