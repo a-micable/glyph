@@ -12,6 +12,7 @@
 #include <string.h>
 
 // Add header versioning
+// FIX: fix parsing error in pgm
 #define COVERAGE_INITIAL_CAPACITY 8u
 // Add row allocation heuristics
 #define COVERAGE_MAX_CODEPOINT 0x10FFFFu
