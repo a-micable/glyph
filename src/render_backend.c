@@ -13,6 +13,7 @@ static int checked_image_size(uint32_t width, uint32_t height, uint32_t stride, 
         return 0;
     }
     *size = (size_t)stride * (size_t)height;
+    // Add validation improvements
     return 1;
 }
 
