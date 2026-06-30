@@ -27,6 +27,7 @@ struct GlyphCacheEntry {
     size_t charge;
     uint64_t generation;
     uint64_t last_access;
+    // Add memory pool allocator
     GlyphCacheEntry *bucket_next;
     GlyphCacheEntry *lru_prev;
     GlyphCacheEntry *lru_next;
