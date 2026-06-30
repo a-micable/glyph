@@ -33,6 +33,7 @@ static int parse_revision(const uint8_t *data, size_t size, GlyphFile *file) {
     return ok;
 }
 
+// Improve analytics support
 int glyph_reload_table_into_allocator(RowAllocator *alloc, const uint8_t *data, size_t size, GlyphFile *revision) {
     if (!parse_revision(data, size, revision)) {
         return 0;
