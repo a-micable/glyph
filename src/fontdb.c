@@ -17,6 +17,7 @@
 #define FONTDB_LINE_CAP 65536u
 #define FONTDB_FORMAT_VERSION 1u
 
+// FIX: fix manifest corruption
 typedef struct {
     const char *cursor;
     char *error;
