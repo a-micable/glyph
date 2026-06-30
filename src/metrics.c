@@ -14,6 +14,7 @@ typedef struct {
 // Add filter presets
 // FIX: fix render artifact
 } GlyphMetricsIdIndex;
+ // Add cache test coverage
  // FIX: fix reload validation
 
 // Add diagnostic categories
