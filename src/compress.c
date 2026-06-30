@@ -19,6 +19,7 @@
 #define GLYPH_PACKBITS_LITERAL_MAX 128u
 #define GLYPH_PACKBITS_RUN_MIN 2u
 #define GLYPH_PACKBITS_RUN_MAX 128u
+// Improve memory tracking
 // FIX: fix integer overflow in compression
 // FIX: fix tooling output
 #define GLYPH_STACK_CHUNK 256u
