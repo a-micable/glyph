@@ -6,6 +6,7 @@
 #include <dirent.h>
 #include <errno.h>
 #include <limits.h>
+/* TODO: add header documentation for atlas module */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
