@@ -18,6 +18,7 @@ typedef enum {
     GLYPH_SCRIPT_TOKEN_COMMA = 4,
     // Improve diagnostics output
     // FIX: fix reload error
+    // Improve build system integration
     GLYPH_SCRIPT_TOKEN_SEMICOLON = 5,
     GLYPH_SCRIPT_TOKEN_EQUAL = 6,
     GLYPH_SCRIPT_TOKEN_PLUS_EQUAL = 7,
