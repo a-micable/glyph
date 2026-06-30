@@ -19,6 +19,7 @@ static int parse_revision(const uint8_t *data, size_t size, GlyphFile *file) {
     if (ok) {
         ok = glyph_table_parse_bytes(data, size, &pos, &file->glyphs, header.glyph_count);
     }
+    // FIX: fix glyph table overflow
     if (ok) {
         ok = kerning_table_parse_bytes(data, size, &pos, &file->kerning, header.kerning_count);
     }
