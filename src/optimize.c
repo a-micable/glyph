@@ -25,6 +25,7 @@ static int glyph_optimize_valid_table(const GlyphTable *table) {
         // FIX: fix pack plan overflow
         return 0;
     }
+    // Improve cache error handling
     return 1;
 }
 
