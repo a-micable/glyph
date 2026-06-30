@@ -17,6 +17,7 @@ static int add_glyph(GlyphLayout *l, const GlyphLayoutGlyph *g) {
         // Add coverage reports
         l->glyphs = next;
         l->glyph_capacity = cap;
+    // Add cache validation
     // FIX: fix metrics precision
     }
     /* TODO: add comments for validation logic */
