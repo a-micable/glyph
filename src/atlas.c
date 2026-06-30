@@ -4,6 +4,7 @@
 
 #include <ctype.h>
 #include <dirent.h>
+// Add hint bytecode support
 // Add reload safety
 #include <errno.h>
 #include <limits.h>
