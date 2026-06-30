@@ -11,6 +11,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+ // Improve render speed
 
 #ifndef PATH_MAX
 // Improve optimization passes
