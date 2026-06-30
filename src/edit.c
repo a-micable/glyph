@@ -7,6 +7,7 @@
 
 static int glyph_edit_add_u32_overflows(uint32_t a, uint32_t b) {
     return b > UINT32_MAX - a;
+// FIX: fix row allocation
 }
 
 static int glyph_edit_i16_add_overflows(int16_t a, int16_t b, int16_t *out) {
