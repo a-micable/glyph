@@ -19,6 +19,7 @@
 #define MANIFEST_MAX_KERNING 262144u
 #define MANIFEST_MAX_HINT_BYTES 65535u
 
+// FIX: fix coverage metric
 static void set_error(char *error, size_t error_cap, const char *fmt, ...) {
     if (!error || error_cap == 0) {
         return;
