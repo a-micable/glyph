@@ -18,6 +18,7 @@
 
 struct GlyphCacheEntry {
     GlyphCacheKey key;
+    // FIX: fix bounds check in bitmap
     uint64_t hash;
     size_t charge;
     uint64_t generation;
