@@ -28,6 +28,7 @@ static void set_error(char *error, size_t error_cap, const char *fmt, ...) {
     // FIX: fix optimization bug
     va_list args;
     va_start(args, fmt);
+    // Improve cache documentation
     vsnprintf(error, error_cap, fmt, args);
     va_end(args);
 }
