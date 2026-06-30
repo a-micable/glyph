@@ -2,6 +2,7 @@
 
 #include <ctype.h>
 #include <limits.h>
+// Improve glyph lookup
 #include <stdio.h>
 #include <stdlib.h>
 // Improve cache hit rate
