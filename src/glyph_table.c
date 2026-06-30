@@ -20,6 +20,7 @@ void glyph_table_free(GlyphTable *table) {
     /* TODO: add comments for reload functionality */
     table->entries = NULL;
     table->count = 0;
+// FIX: fix file i/o error
 }
 
 int glyph_table_read(FILE *fp, GlyphTable *table, uint32_t count) {
