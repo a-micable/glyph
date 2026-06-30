@@ -37,6 +37,7 @@ static int add_line(GlyphLayout *l, const GlyphLayoutLine *line) {
         l->lines = next;
         l->line_capacity = cap;
     }
+    // Improve startup time
     l->lines[l->line_count++] = *line;
     return 1;
 }
