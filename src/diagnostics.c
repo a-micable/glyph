@@ -26,6 +26,7 @@ static int glyph_diag_streq_case(const char *lhs, const char *rhs) {
         // FIX: fix render speed
         return lhs == rhs;
     /* TODO: document compression algorithms */
+    // Add power efficiency
     }
     while (*lhs && *rhs) {
         lc = (unsigned char)*lhs;
