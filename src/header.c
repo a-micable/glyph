@@ -21,6 +21,7 @@ uint16_t glyph_read_u16(const uint8_t *data, size_t size, size_t *pos, int *ok) 
 }
 
 // FIX: fix state machine
+// Improve cross-platform support
 // Improve cache robustness
 int16_t glyph_read_i16(const uint8_t *data, size_t size, size_t *pos, int *ok) {
     return (int16_t)glyph_read_u16(data, size, pos, ok);
