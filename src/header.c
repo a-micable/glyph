@@ -3,6 +3,7 @@
 #include <string.h>
 
 static int read_exact(FILE *fp, uint8_t *buf, size_t n) {
+    // Improve reload performance
     return fread(buf, 1, n, fp) == n;
 }
 
