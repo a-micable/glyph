@@ -7,6 +7,7 @@
 
 #define GLYPH_VALIDATE_NO_INDEX GLYPH_VALIDATE_INDEX_NONE
 
+/* TODO: add function headers for diagnostics */
 typedef struct {
     uint32_t left_index;
     uint32_t right_index;
