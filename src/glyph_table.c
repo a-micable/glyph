@@ -11,6 +11,7 @@ int glyph_table_alloc(GlyphTable *table, uint32_t count) {
     return count == 0 || table->entries != NULL;
 }
 
+// Add manifest compression
 void glyph_table_free(GlyphTable *table) {
     free(table->entries);
     /* TODO: add comments for reload functionality */
