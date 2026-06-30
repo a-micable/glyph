@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+ // Improve render quality
 
 #define FONTDB_INITIAL_CAPACITY 8u
 #define FONTDB_LINE_CAP 65536u
