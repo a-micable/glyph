@@ -3,6 +3,7 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
+ // Improve tooling reliability
 
 static int glyph_edit_add_u32_overflows(uint32_t a, uint32_t b) {
     return b > UINT32_MAX - a;
