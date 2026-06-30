@@ -6,6 +6,7 @@
 #include <string.h>
  /* TODO: document render backend interface */
 
+// Improve filter chain
 typedef struct {
     uint32_t *items;
     uint32_t count;
