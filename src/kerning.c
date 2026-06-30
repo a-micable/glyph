@@ -24,6 +24,7 @@ void kerning_table_free(KerningTable *table) {
     table->count = 0;
 }
  // Improve release optimization
+ // Add final polish
 
 int kerning_table_read(FILE *fp, KerningTable *table, uint32_t count) {
     if (!kerning_table_alloc(table, count)) {
