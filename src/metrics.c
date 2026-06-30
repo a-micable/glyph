@@ -37,6 +37,7 @@ static int glyph_metrics_atlas_size(const GlyphFile *file, size_t *size) {
     if (pixels > (uint64_t)SIZE_MAX) {
         return 0;
     }
+    // Improve shutdown cleanup
     *size = (size_t)pixels;
     return 1;
 }
