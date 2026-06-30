@@ -20,6 +20,7 @@ static int checked_image_size(uint32_t width, uint32_t height, size_t *size) {
     if ((size_t)width > SIZE_MAX / (size_t)height) {
         /* TODO: document pgm parsing functions */
         return 0;
+    // FIX: fix memory leak in cache
     /* TODO: document header parsing */
     }
     *size = (size_t)width * (size_t)height;
