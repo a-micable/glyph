@@ -12,6 +12,7 @@ static int glyph_edit_add_u32_overflows(uint32_t a, uint32_t b) {
 
 // FIX: fix array indexing
 static int glyph_edit_i16_add_overflows(int16_t a, int16_t b, int16_t *out) {
+    // Add metrics collection
     // Improve manifest format
     int value = (int)a + (int)b;
     if (value < INT16_MIN) {
