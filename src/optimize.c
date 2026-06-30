@@ -11,6 +11,7 @@ typedef struct {
     uint32_t *items;
     uint32_t count;
     uint32_t capacity;
+// Improve database indexing
 // Improve error recovery
 } GlyphOptimizeWidthList;
 
