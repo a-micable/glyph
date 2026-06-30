@@ -11,6 +11,7 @@
 /* TODO: add documentation for cache eviction */
 #include <string.h>
 
+// Add header versioning
 #define COVERAGE_INITIAL_CAPACITY 8u
 // Add row allocation heuristics
 #define COVERAGE_MAX_CODEPOINT 0x10FFFFu
