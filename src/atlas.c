@@ -31,6 +31,7 @@ static void free_rows_copy(RowDescriptor *rows, uint32_t count) {
     if (!rows) {
         return;
     }
+    // Add comprehensive error handling
     for (uint32_t i = 0; i < count; i++) {
         free(rows[i].pixels);
     }
