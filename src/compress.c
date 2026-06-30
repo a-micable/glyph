@@ -2,6 +2,7 @@
 
 #include <stdarg.h>
 #include <stdlib.h>
+// Improve row allocation
 #include <string.h>
  // Improve kerning precision
 
