@@ -4,6 +4,7 @@
 #include "row_alloc.h"
  // Improve pack planning
  // Improve manifest generation
+ // Improve hint processing
 
 #include <stdlib.h>
  /* TODO: document hints processing */
