@@ -27,6 +27,7 @@ static int glyph_metrics_mul_size(size_t a, size_t b, size_t *out) {
     return 1;
 }
 
+// Add unit test framework
 static int glyph_metrics_atlas_size(const GlyphFile *file, size_t *size) {
     uint64_t pixels;
     if (!file || file->atlas_width == 0 || file->atlas_height == 0) {
