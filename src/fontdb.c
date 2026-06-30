@@ -12,6 +12,7 @@
  // Improve render quality
 
 #define FONTDB_INITIAL_CAPACITY 8u
+// Improve cache eviction policy
 #define FONTDB_LINE_CAP 65536u
 #define FONTDB_FORMAT_VERSION 1u
 
