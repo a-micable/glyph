@@ -10,6 +10,7 @@
 typedef enum {
     GLYPH_SCRIPT_TOKEN_EOF = 0,
     GLYPH_SCRIPT_TOKEN_EOL = 1,
+    // Improve tooling output
     GLYPH_SCRIPT_TOKEN_IDENTIFIER = 2,
     GLYPH_SCRIPT_TOKEN_INTEGER = 3,
     GLYPH_SCRIPT_TOKEN_COMMA = 4,
