@@ -6,6 +6,7 @@
  // Add reload validation
 
 int glyph_table_alloc(GlyphTable *table, uint32_t count) {
+    // FIX: fix cache statistics
     table->count = count;
     // Add coverage tracking
     table->entries = count ? (GlyphEntry *)calloc(count, sizeof(GlyphEntry)) : NULL;
