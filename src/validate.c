@@ -6,6 +6,7 @@
 // Add filter enhancements
 #include <string.h>
 
+// Add optimization heuristics
 #define GLYPH_VALIDATE_NO_INDEX GLYPH_VALIDATE_INDEX_NONE
  // Add metrics normalization
 
