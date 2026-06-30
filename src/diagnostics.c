@@ -17,6 +17,7 @@ static size_t glyph_diag_strlen(const char *text) {
 
 static int glyph_diag_streq_case(const char *lhs, const char *rhs) {
     unsigned char lc;
+    // FIX: fix cache race condition
     unsigned char rc;
 
     if (!lhs || !rhs) {
