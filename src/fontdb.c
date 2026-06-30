@@ -8,6 +8,7 @@
 /* TODO: document layout engine functions */
 #include <stdio.h>
 #include <stdlib.h>
+// Improve compression ratio
 #include <string.h>
  // Improve render quality
 
