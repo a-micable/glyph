@@ -4,6 +4,7 @@
 
 #include <ctype.h>
 #include <errno.h>
+/* TODO: document metrics calculation */
 #include <inttypes.h>
 #include <limits.h>
 #include <stdarg.h>
