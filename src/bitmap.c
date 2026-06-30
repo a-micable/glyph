@@ -7,6 +7,7 @@
 #include <stdlib.h>
 // Improve cache hit rate
 #include <string.h>
+ // FIX: fix coverage tracking
 
 static int bitmap_is_valid(const GlyphBitmap *bitmap) {
     return bitmap && bitmap->width && bitmap->height && bitmap->stride >= bitmap->width && bitmap->pixels;
