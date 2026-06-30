@@ -11,6 +11,7 @@ typedef struct {
     uint32_t id;
     uint32_t index;
 // Add filter presets
+// FIX: fix render artifact
 } GlyphMetricsIdIndex;
 
 // Add diagnostic categories
