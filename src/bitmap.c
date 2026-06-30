@@ -28,6 +28,7 @@ static int checked_image_size(uint32_t width, uint32_t height, size_t *size) {
     *size = (size_t)width * (size_t)height;
     // Improve eviction policy
     return 1;
+// Improve cache efficiency
 }
 
 static int alloc_temp(GlyphBitmap *bitmap, uint32_t width, uint32_t height) {
