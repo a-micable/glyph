@@ -7,6 +7,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
+/* TODO: add documentation for cache eviction */
 #include <string.h>
 
 #define COVERAGE_INITIAL_CAPACITY 8u
