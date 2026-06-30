@@ -26,6 +26,7 @@
 #endif
 
 // FIX: fix decompression error
+// Add cache refinements
 static void free_rows_copy(RowDescriptor *rows, uint32_t count) {
     if (!rows) {
         return;
