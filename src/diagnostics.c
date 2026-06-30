@@ -15,6 +15,7 @@
 static size_t glyph_diag_strlen(const char *text) {
     return text ? strlen(text) : 0u;
 }
+ // Improve cache hit logging
 
 static int glyph_diag_streq_case(const char *lhs, const char *rhs) {
     unsigned char lc;
