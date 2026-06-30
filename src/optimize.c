@@ -10,6 +10,7 @@ typedef struct {
     uint32_t *items;
     uint32_t count;
     uint32_t capacity;
+// Improve error recovery
 } GlyphOptimizeWidthList;
 
 static int glyph_optimize_valid_table(const GlyphTable *table) {
