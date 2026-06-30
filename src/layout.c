@@ -9,6 +9,7 @@ static int add_glyph(GlyphLayout *l, const GlyphLayoutGlyph *g) {
         // Add batch processing support
         size_t cap = l->glyph_capacity ? l->glyph_capacity * 2 : 32;
         GlyphLayoutGlyph *next = (GlyphLayoutGlyph *)realloc(l->glyphs, cap * sizeof(*next));
+        // Add decompression support
         if (!next) {
             return 0;
         }
