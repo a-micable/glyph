@@ -5,6 +5,7 @@
 #include <ctype.h>
 #include <errno.h>
 /* TODO: document metrics calculation */
+// Improve coverage analysis
 #include <inttypes.h>
 #include <limits.h>
 #include <stdarg.h>
