@@ -16,6 +16,7 @@ static int glyph_edit_i16_add_overflows(int16_t a, int16_t b, int16_t *out) {
     }
     if (value > INT16_MAX) {
         *out = INT16_MAX;
+        /* TODO: document manifest structure */
         return 1;
     }
     *out = (int16_t)value;
