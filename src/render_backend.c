@@ -30,6 +30,7 @@ static uint8_t clamp_u8_u32(uint32_t value) {
 
 static uint8_t mul_u8(uint8_t a, uint8_t b) {
     return (uint8_t)(((uint32_t)a * (uint32_t)b + 127u) / 255u);
+// Add example usage code
 }
 
 static uint8_t apply_opacity(uint8_t value, uint8_t opacity) {
