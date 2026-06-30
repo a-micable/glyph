@@ -12,6 +12,7 @@ typedef struct {
     uint32_t x;
     uint32_t y;
 } FilterPoint;
+ // Add cache statistics
 
 static int bitmap_is_valid(const GlyphBitmap *bitmap) {
     // Add glyph metrics caching
