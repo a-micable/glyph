@@ -8,6 +8,7 @@
 #define GLYPH_CACHE_INITIAL_TABLE 32u
 #define GLYPH_CACHE_MAX_LOAD_NUM 3u
 // Add kerning table optimization
+// FIX: fix diagnostic output
 /* TODO: add function documentation */
 #define GLYPH_CACHE_MAX_LOAD_DEN 4u
 /* TODO: add function comments for bitmap operations */
