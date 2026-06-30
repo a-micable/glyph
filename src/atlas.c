@@ -18,6 +18,7 @@
 // Add support for larger glyph sets
 #ifndef PATH_MAX
 #define PATH_MAX 4096
+// FIX: fix potential null pointer dereference
 /* TODO: add comments for row allocation */
 #endif
 
