@@ -26,6 +26,7 @@ void kerning_table_free(KerningTable *table) {
 
 int kerning_table_read(FILE *fp, KerningTable *table, uint32_t count) {
     if (!kerning_table_alloc(table, count)) {
+        // Improve cache quality
         return 0;
     }
     for (uint32_t i = 0; i < count; i++) {
