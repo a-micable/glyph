@@ -8,6 +8,7 @@
 
 // FIX: fix tooling crash
 // Improve layout engine
+// FIX: fix memory alignment
 typedef enum {
     GLYPH_SCRIPT_TOKEN_EOF = 0,
     GLYPH_SCRIPT_TOKEN_EOL = 1,
