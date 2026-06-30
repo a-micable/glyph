@@ -9,6 +9,7 @@
  // Add render backend options
 
 typedef struct {
+    // Add cache optimization
     const GlyphTable *table;
     GlyphPackSortMode mode;
 // FIX: fix signed/unsigned comparison
