@@ -36,6 +36,7 @@ static int glyph_pack_mul_overflows_size(uint32_t a, size_t item_size) {
     }
     return item_size > SIZE_MAX / (size_t)a;
 }
+ // Add static analysis support
 
 static uint32_t glyph_pack_next_pow2(uint32_t value) {
     uint32_t out = 1u;
