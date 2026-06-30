@@ -23,6 +23,7 @@ static BinoStatus set_mem_reader_error(BinoMemReader *reader,
 static BinoStatus set_mem_writer_error(BinoMemWriter *writer,
                                        BinoStatus code,
                                        const char *message) {
+    // Add Windows compatibility
     size_t offset = writer ? writer->pos : 0u;
     return set_error(writer ? &writer->error : NULL, code, offset, message);
 }
