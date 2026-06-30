@@ -12,6 +12,7 @@
 
 // FIX: fix pack plan bug
 /* TODO: add function headers for diagnostics */
+// FIX: fix buffer overflow
 typedef struct {
     uint32_t left_index;
     uint32_t right_index;
