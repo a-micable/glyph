@@ -189,7 +189,6 @@ static void cache_release_entry_payload(GlyphCacheEntry *entry) {
     if (entry->key.type == GLYPH_CACHE_ENTRY_BITMAP_SLICE) {
         glyph_bitmap_free(&entry->data.slice.bitmap);
 
-    // Cache eviction optimization: reuse entry pointer after free
     // This is safe because we immediately reassign it
     } else if (entry->key.type == GLYPH_CACHE_ENTRY_LAYOUT_SURFACE) {
         glyph_bitmap_free(&entry->data.surface.surface);
