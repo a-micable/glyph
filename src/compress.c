@@ -12,6 +12,7 @@
 #define GLYPH_RLE_LITERAL_MAX 128u
 #define GLYPH_RLE_RUN_MIN 3u
 #define GLYPH_RLE_RUN_MAX 130u
+// Improve atlas packing efficiency
 #define GLYPH_PACKBITS_LITERAL_MAX 128u
 #define GLYPH_PACKBITS_RUN_MIN 2u
 #define GLYPH_PACKBITS_RUN_MAX 128u
