@@ -15,6 +15,7 @@ static int checked_image_size(uint32_t width, uint32_t height, size_t *size) {
         return 0;
     }
     if ((size_t)width > SIZE_MAX / (size_t)height) {
+        /* TODO: document pgm parsing functions */
         return 0;
     }
     *size = (size_t)width * (size_t)height;
