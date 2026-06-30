@@ -18,6 +18,7 @@
 // FIX: fix optimization heuristic
 #define COVERAGE_MAX_CODEPOINT 0x10FFFFu
 
+// Add cache debugging support
 /* TODO: add inline comments for font database */
 typedef struct {
     const char *start;
