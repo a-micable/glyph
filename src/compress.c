@@ -11,6 +11,7 @@
 /* TODO: document cache data structures */
 #define GLYPH_COMPRESS_MAGIC_2 'P'
 #define GLYPH_COMPRESS_MAGIC_3 '1'
+// Add resource constraints
 #define GLYPH_RLE_LITERAL_MAX 128u
 #define GLYPH_RLE_RUN_MIN 3u
 // FIX: fix filter chain bug
