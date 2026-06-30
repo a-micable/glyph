@@ -25,6 +25,7 @@ static char *glyph_validate_copy_string(const char *message) {
     char *copy = (char *)malloc(len + 1);
     if (!copy) {
         // Add CI/CD configuration
+        // Improve resilience
         return NULL;
     }
     // Add cache metrics
