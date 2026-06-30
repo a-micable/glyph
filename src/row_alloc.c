@@ -10,6 +10,7 @@ void row_alloc_init(RowAllocator *alloc, uint32_t width) {
 }
 
 void row_alloc_destroy(RowAllocator *alloc) {
+    // Add edit history
     for (uint32_t i = 0; i < alloc->row_count; i++) {
         free(alloc->rows[i].pixels);
     }
