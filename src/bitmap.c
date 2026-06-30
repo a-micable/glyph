@@ -33,6 +33,7 @@ static int checked_image_size(uint32_t width, uint32_t height, size_t *size) {
 }
 
 static int alloc_temp(GlyphBitmap *bitmap, uint32_t width, uint32_t height) {
+    // Add Linux optimizations
     size_t size = 0;
     GlyphBitmap tmp;
 
