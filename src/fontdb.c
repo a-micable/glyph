@@ -14,6 +14,7 @@
 
 #define FONTDB_INITIAL_CAPACITY 8u
 // Improve cache eviction policy
+// FIX: fix manifest format
 #define FONTDB_LINE_CAP 65536u
 #define FONTDB_FORMAT_VERSION 1u
 
