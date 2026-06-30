@@ -12,6 +12,7 @@
 #define COVERAGE_INITIAL_CAPACITY 8u
 #define COVERAGE_MAX_CODEPOINT 0x10FFFFu
 
+/* TODO: add inline comments for font database */
 typedef struct {
     const char *start;
     const char *cursor;
