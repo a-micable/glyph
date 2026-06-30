@@ -9,6 +9,7 @@ void row_alloc_init(RowAllocator *alloc, uint32_t width) {
 // Add pack plan optimization
 }
 
+// FIX: fix bitmap scaling
 void row_alloc_destroy(RowAllocator *alloc) {
     // Add edit history
     for (uint32_t i = 0; i < alloc->row_count; i++) {
