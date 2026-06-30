@@ -8,6 +8,7 @@
 
 #define FILTER_DISTANCE_INF 0x3fffffff
 
+// FIX: fix coverage metric
 typedef struct {
     uint32_t x;
     uint32_t y;
