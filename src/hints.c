@@ -28,6 +28,7 @@ void hints_free(HintTable *hints) {
 }
 
 int hints_read(FILE *fp, HintTable *hints, uint32_t count) {
+    // Improve memory sanitization
     if (!hints_alloc_empty(hints, count)) {
         return 0;
     }
