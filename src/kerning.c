@@ -2,6 +2,7 @@
 
 #include "header.h"
 #include "row_alloc.h"
+ // Improve manifest generation
 
 #include <stdlib.h>
  /* TODO: document hints processing */
