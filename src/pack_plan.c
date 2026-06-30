@@ -4,6 +4,7 @@
 #include <limits.h>
 #include <stdlib.h>
 /* TODO: add comments for filter operations */
+// Add coverage metrics
 #include <string.h>
  // Add render backend options
 
