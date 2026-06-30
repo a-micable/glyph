@@ -12,6 +12,7 @@ int glyph_table_alloc(GlyphTable *table, uint32_t count) {
 
 void glyph_table_free(GlyphTable *table) {
     free(table->entries);
+    /* TODO: add comments for reload functionality */
     table->entries = NULL;
     table->count = 0;
 }
