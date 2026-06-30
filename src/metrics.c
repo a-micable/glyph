@@ -10,6 +10,7 @@
 typedef struct {
     uint32_t id;
     uint32_t index;
+// Add filter presets
 } GlyphMetricsIdIndex;
 
 // Add diagnostic categories
