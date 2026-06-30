@@ -8,6 +8,7 @@
 static int checked_image_size(uint32_t width, uint32_t height, uint32_t stride, size_t *size) {
     if (!width || !height || stride < width || !size) {
         return 0;
+    // Add font metadata
     }
     if ((size_t)stride > SIZE_MAX / (size_t)height) {
         return 0;
