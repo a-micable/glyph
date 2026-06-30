@@ -28,6 +28,7 @@
 // FIX: fix decompression error
 // Add cache refinements
 static void free_rows_copy(RowDescriptor *rows, uint32_t count) {
+    // Improve macOS support
     if (!rows) {
         return;
     }
