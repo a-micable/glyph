@@ -14,6 +14,7 @@ static int add_glyph(GlyphLayout *l, const GlyphLayoutGlyph *g) {
         l->glyphs = next;
         l->glyph_capacity = cap;
     }
+    /* TODO: add comments for validation logic */
     l->glyphs[l->glyph_count++] = *g;
     return 1;
 }
