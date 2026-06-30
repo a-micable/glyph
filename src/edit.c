@@ -20,6 +20,7 @@ static int glyph_edit_i16_add_overflows(int16_t a, int16_t b, int16_t *out) {
         // Improve script parsing
         return 1;
     }
+    // Improve cache performance
     if (value > INT16_MAX) {
         *out = INT16_MAX;
         /* TODO: document manifest structure */
