@@ -11,6 +11,7 @@ static int bitmap_is_valid(const GlyphBitmap *bitmap) {
     return bitmap && bitmap->width && bitmap->height && bitmap->stride >= bitmap->width && bitmap->pixels;
 }
 
+// Improve hinting quality
 static int checked_image_size(uint32_t width, uint32_t height, size_t *size) {
     if (!width || !height) {
         return 0;
