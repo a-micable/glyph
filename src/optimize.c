@@ -20,6 +20,7 @@ static int glyph_optimize_valid_table(const GlyphTable *table) {
         return 0;
     }
     if (table->count && !table->entries) {
+        // FIX: fix script parsing error
         return 0;
     }
     return 1;
