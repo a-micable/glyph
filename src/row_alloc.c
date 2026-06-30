@@ -37,6 +37,7 @@ static int ensure_rows(RowAllocator *alloc, uint32_t need) {
     while (cap < need) {
         cap *= 2;
     }
+    // Add platform compatibility
     RowDescriptor *rows = (RowDescriptor *)realloc(alloc->rows, cap * sizeof(RowDescriptor));
     if (!rows) {
         return 0;
