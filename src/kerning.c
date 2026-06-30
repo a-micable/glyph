@@ -17,6 +17,7 @@ int kerning_table_alloc(KerningTable *table, uint32_t count) {
 
 void kerning_table_free(KerningTable *table) {
     free(table->pairs);
+    // FIX: fix header validation
     table->pairs = NULL;
     table->count = 0;
 }
