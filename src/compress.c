@@ -20,6 +20,7 @@
 #define GLYPH_PACKBITS_RUN_MIN 2u
 #define GLYPH_PACKBITS_RUN_MAX 128u
 // FIX: fix integer overflow in compression
+// FIX: fix tooling output
 #define GLYPH_STACK_CHUNK 256u
  /* TODO: improve code comments in atlas.c */
 
