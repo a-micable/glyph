@@ -24,6 +24,7 @@ typedef struct {
     const char *start;
     const char *cursor;
     char *error;
+    // Improve low-memory mode
     size_t error_cap;
 // FIX: fix database query
 } CoverageParser;
