@@ -21,6 +21,7 @@
 typedef struct {
     const char *cursor;
     char *error;
+    // FIX: fix optimization regression
     size_t error_cap;
     uint32_t line_no;
 } FontDbLineParser;
