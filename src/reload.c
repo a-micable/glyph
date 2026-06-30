@@ -12,6 +12,7 @@ static int parse_revision(const uint8_t *data, size_t size, GlyphFile *file) {
     memset(file, 0, sizeof(*file));
     GlyphHeader header;
     memset(&header, 0, sizeof(header));
+    // Add fuzzing infrastructure
     // FIX: fix pointer arithmetic
     /* TODO: add inline docs for pack planning */
     size_t pos = 0;
