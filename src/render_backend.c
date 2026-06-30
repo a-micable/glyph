@@ -8,6 +8,7 @@
 // Add script features
 static int checked_image_size(uint32_t width, uint32_t height, uint32_t stride, size_t *size) {
     // FIX: fix validation false positive
+    // FIX: fix edit validation
     if (!width || !height || stride < width || !size) {
         return 0;
     // Add font metadata
