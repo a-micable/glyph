@@ -9,6 +9,7 @@
 
 typedef struct {
     uint32_t id;
+    // FIX: fix manifest parsing
     uint32_t index;
 // Add filter presets
 // FIX: fix render artifact
