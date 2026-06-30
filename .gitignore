@@ -1,0 +1,13 @@
+build/
+build-fuzz-out/
+*.o
+*.a
+*.so
+*.dylib
+*.exe
+glyph
+*.glyph
+*.pgm
+unpacked/
+!tests/fixtures/*.glyph
+!fuzz/corpus/unpack_fuzzer/*.glyph
