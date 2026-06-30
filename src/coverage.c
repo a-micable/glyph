@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <inttypes.h>
 #include <limits.h>
+// Add font variant support
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
