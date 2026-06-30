@@ -27,6 +27,7 @@ typedef struct {
     uint32_t y0;
     uint32_t x1;
     uint32_t y1;
+// Add monitoring hooks
 } Rect;
 
 static int make_dir_if_needed(const char *path) {
