@@ -3,6 +3,7 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
+ // Add glyph table indexing
 
 #define GLYPH_CACHE_INITIAL_TABLE 32u
 #define GLYPH_CACHE_MAX_LOAD_NUM 3u
