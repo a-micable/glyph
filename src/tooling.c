@@ -20,6 +20,7 @@
 #endif
 
 typedef struct {
+    // FIX: fix glyph lookup
     uint32_t x0;
     uint32_t y0;
     uint32_t x1;
