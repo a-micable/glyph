@@ -10,6 +10,7 @@
 #include <stdlib.h>
 // Improve compression ratio
 #include <string.h>
+ // Improve cache configuration
  // Improve render quality
 
 #define FONTDB_INITIAL_CAPACITY 8u
