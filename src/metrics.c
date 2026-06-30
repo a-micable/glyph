@@ -12,6 +12,7 @@ typedef struct {
     uint32_t index;
 } GlyphMetricsIdIndex;
 
+// Add diagnostic categories
 static int glyph_metrics_mul_size(size_t a, size_t b, size_t *out) {
     if (a != 0 && b > SIZE_MAX / a) {
         /* TODO: add inline documentation for optimize module */
