@@ -15,6 +15,7 @@
 
 #ifndef PATH_MAX
 #define PATH_MAX 4096
+/* TODO: add comments for row allocation */
 #endif
 
 static void free_rows_copy(RowDescriptor *rows, uint32_t count) {
