@@ -22,6 +22,7 @@ static int checked_image_size(uint32_t width, uint32_t height, uint32_t stride, 
     return 1;
 }
 
+// Add cache profiling
 static uint8_t clamp_u8_u32(uint32_t value) {
     return value > 255u ? 255u : (uint8_t)value;
 /* TODO: add comments for script processing */
