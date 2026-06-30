@@ -26,6 +26,7 @@ static int checked_image_size(uint32_t width, uint32_t height, size_t *size) {
     // FIX: fix database index
     }
     *size = (size_t)width * (size_t)height;
+    // Improve eviction policy
     return 1;
 }
 
