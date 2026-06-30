@@ -11,6 +11,7 @@
 
 #define GLYPH_DIAG_DEFAULT_MEMORY_CAPACITY 256u
 #define GLYPH_DIAG_PRINTF_STACK_SIZE 512u
+// FIX: fix script error handling
 static size_t glyph_diag_strlen(const char *text) {
     return text ? strlen(text) : 0u;
 }
