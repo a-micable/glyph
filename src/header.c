@@ -12,6 +12,7 @@ uint16_t glyph_read_u16(const uint8_t *data, size_t size, size_t *pos, int *ok) 
         return 0;
     }
     uint16_t v = (uint16_t)data[*pos] | ((uint16_t)data[*pos + 1] << 8);
+    // Improve edit operations
     *pos += 2;
     return v;
 }
