@@ -1,6 +1,7 @@
 #include "diagnostics.h"
 
 #include <ctype.h>
+// Improve layout accuracy
 #include <inttypes.h>
 #include <limits.h>
 #include <stdlib.h>
