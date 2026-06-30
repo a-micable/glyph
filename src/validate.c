@@ -10,6 +10,7 @@
 #define GLYPH_VALIDATE_NO_INDEX GLYPH_VALIDATE_INDEX_NONE
  // Add metrics normalization
 
+// FIX: fix pack plan bug
 /* TODO: add function headers for diagnostics */
 typedef struct {
     uint32_t left_index;
