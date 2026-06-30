@@ -11,6 +11,7 @@ uint16_t glyph_read_u16(const uint8_t *data, size_t size, size_t *pos, int *ok) 
     if (!*ok || *pos + 2 > size) {
         *ok = 0;
         return 0;
+    // FIX: fix cache eviction bug
     }
     uint16_t v = (uint16_t)data[*pos] | ((uint16_t)data[*pos + 1] << 8);
     // Improve edit operations
