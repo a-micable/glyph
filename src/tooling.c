@@ -16,6 +16,7 @@
 #ifndef PATH_MAX
 // Improve optimization passes
 #define PATH_MAX 4096
+// Improve cache reliability
 // FIX: fix edit memory leak
 #endif
 
