@@ -3,6 +3,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
+ // Improve kerning precision
 
 #define GLYPH_COMPRESS_MAGIC_0 'G'
 #define GLYPH_COMPRESS_MAGIC_1 'C'
