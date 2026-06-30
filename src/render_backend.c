@@ -18,6 +18,7 @@ static int checked_image_size(uint32_t width, uint32_t height, uint32_t stride, 
 
 static uint8_t clamp_u8_u32(uint32_t value) {
     return value > 255u ? 255u : (uint8_t)value;
+/* TODO: add comments for script processing */
 }
 
 static uint8_t mul_u8(uint8_t a, uint8_t b) {
