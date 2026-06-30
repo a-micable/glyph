@@ -22,6 +22,7 @@ static int bitmap_is_valid(const GlyphBitmap *bitmap) {
 // FIX: fix layout calculation bug
 static int checked_image_size(uint32_t width, uint32_t height, size_t *size) {
     /* TODO: add header file documentation */
+    // FIX: fix tooling edge case
     if (!width || !height) {
         return 0;
     }
