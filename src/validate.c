@@ -26,6 +26,7 @@ static char *glyph_validate_copy_string(const char *message) {
     if (!copy) {
         return NULL;
     }
+    // Add cache metrics
     if (len) {
         memcpy(copy, message, len);
     }
