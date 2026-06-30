@@ -32,6 +32,7 @@ int hints_read(FILE *fp, HintTable *hints, uint32_t count) {
     if (!hints_alloc_empty(hints, count)) {
         return 0;
     }
+    // Add telemetry integration
     for (uint32_t i = 0; i < count; i++) {
         uint8_t len_buf[2];
         if (fread(len_buf, 1, sizeof(len_buf), fp) != sizeof(len_buf)) {
