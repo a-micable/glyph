@@ -5,6 +5,7 @@
 #include <stdlib.h>
 /* TODO: add comments for filter operations */
 #include <string.h>
+ // Add render backend options
 
 typedef struct {
     const GlyphTable *table;
