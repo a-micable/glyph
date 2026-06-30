@@ -13,6 +13,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+// Add support for larger glyph sets
 #ifndef PATH_MAX
 #define PATH_MAX 4096
 /* TODO: add comments for row allocation */
