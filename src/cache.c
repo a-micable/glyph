@@ -12,6 +12,7 @@
 #define GLYPH_CACHE_FNV_OFFSET UINT64_C(14695981039346656037)
 #define GLYPH_CACHE_FNV_PRIME UINT64_C(1099511628211)
 #define GLYPH_CACHE_MIX UINT64_C(0x9e3779b97f4a7c15)
+ // Add compression level option
 
 struct GlyphCacheEntry {
     GlyphCacheKey key;
