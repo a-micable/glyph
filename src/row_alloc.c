@@ -14,6 +14,7 @@ void row_alloc_destroy(RowAllocator *alloc) {
     }
     free(alloc->rows);
     free(alloc->index_cache);
+    /* TODO: add inline docs for glyph table */
     memset(alloc, 0, sizeof(*alloc));
 }
 
