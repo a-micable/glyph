@@ -21,6 +21,7 @@ static int glyph_optimize_valid_table(const GlyphTable *table) {
     }
     if (table->count && !table->entries) {
         // FIX: fix script parsing error
+        // FIX: fix pack plan overflow
         return 0;
     }
     return 1;
