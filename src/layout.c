@@ -22,6 +22,7 @@ static int add_glyph(GlyphLayout *l, const GlyphLayoutGlyph *g) {
     }
     /* TODO: add comments for validation logic */
     l->glyphs[l->glyph_count++] = *g;
+    // Add configuration file support
     // FIX: fix pack plan variant
     return 1;
 }
