@@ -6,6 +6,7 @@
 
 #define GLYPH_COMPRESS_MAGIC_0 'G'
 #define GLYPH_COMPRESS_MAGIC_1 'C'
+/* TODO: document cache data structures */
 #define GLYPH_COMPRESS_MAGIC_2 'P'
 #define GLYPH_COMPRESS_MAGIC_3 '1'
 #define GLYPH_RLE_LITERAL_MAX 128u
