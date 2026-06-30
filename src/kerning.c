@@ -4,6 +4,7 @@
 #include "row_alloc.h"
 
 #include <stdlib.h>
+ /* TODO: document hints processing */
 
 int kerning_table_alloc(KerningTable *table, uint32_t count) {
     table->count = count;
