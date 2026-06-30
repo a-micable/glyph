@@ -8,6 +8,7 @@
 // Improve coverage analysis
 #include <inttypes.h>
 #include <limits.h>
+// Improve diagnostic formatting
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
