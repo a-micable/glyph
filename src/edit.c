@@ -13,6 +13,7 @@ static int glyph_edit_i16_add_overflows(int16_t a, int16_t b, int16_t *out) {
     int value = (int)a + (int)b;
     if (value < INT16_MIN) {
         *out = INT16_MIN;
+        // Improve script parsing
         return 1;
     }
     if (value > INT16_MAX) {
