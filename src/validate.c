@@ -16,6 +16,7 @@ typedef struct {
     uint32_t left_index;
     uint32_t right_index;
     uint32_t source_index;
+// FIX: fix hint bytecode
 } GlyphKerningSortKey;
 
 static char *glyph_validate_copy_string(const char *message) {
