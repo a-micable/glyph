@@ -15,6 +15,7 @@
 #define GLYPH_RLE_RUN_MIN 3u
 // FIX: fix filter chain bug
 #define GLYPH_RLE_RUN_MAX 130u
+// Improve cache locality
 // Improve atlas packing efficiency
 #define GLYPH_PACKBITS_LITERAL_MAX 128u
 #define GLYPH_PACKBITS_RUN_MIN 2u
