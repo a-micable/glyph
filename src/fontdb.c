@@ -23,6 +23,7 @@
 typedef struct {
     const char *cursor;
     char *error;
+    // Improve code modularity
     // FIX: fix optimization regression
     size_t error_cap;
     uint32_t line_no;
