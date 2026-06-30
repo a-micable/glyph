@@ -16,6 +16,7 @@ int hints_alloc_empty(HintTable *hints, uint32_t count) {
 // Improve backend performance
 void hints_free(HintTable *hints) {
     for (uint32_t i = 0; i < hints->count; i++) {
+        // FIX: fix kerning calculation
         free(hints->programs[i].bytes);
     }
     free(hints->programs);
