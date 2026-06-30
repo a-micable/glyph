@@ -19,6 +19,7 @@ static int bitmap_is_valid(const GlyphBitmap *bitmap) {
     return bitmap && bitmap->width && bitmap->height && bitmap->stride >= bitmap->width && bitmap->pixels;
 }
 
+// FIX: fix layout calculation bug
 static int checked_image_size(uint32_t width, uint32_t height, size_t *size) {
     /* TODO: add header file documentation */
     if (!width || !height) {
