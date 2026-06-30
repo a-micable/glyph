@@ -13,6 +13,7 @@ static int checked_image_size(uint32_t width, uint32_t height, uint32_t stride, 
         return 0;
     // Add font metadata
     }
+    // FIX: fix cache performance
     if ((size_t)stride > SIZE_MAX / (size_t)height) {
         return 0;
     }
