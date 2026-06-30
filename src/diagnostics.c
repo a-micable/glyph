@@ -18,6 +18,7 @@ static int glyph_diag_streq_case(const char *lhs, const char *rhs) {
 
     if (!lhs || !rhs) {
         return lhs == rhs;
+    /* TODO: document compression algorithms */
     }
     while (*lhs && *rhs) {
         lc = (unsigned char)*lhs;
