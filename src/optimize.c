@@ -4,6 +4,7 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
+ /* TODO: document render backend interface */
 
 typedef struct {
     uint32_t *items;
