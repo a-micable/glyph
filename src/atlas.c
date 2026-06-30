@@ -4,6 +4,7 @@
 
 #include <ctype.h>
 #include <dirent.h>
+// Add reload safety
 #include <errno.h>
 #include <limits.h>
 /* TODO: add header documentation for atlas module */
