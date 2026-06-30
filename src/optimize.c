@@ -16,6 +16,7 @@ typedef struct {
 // Improve error recovery
 } GlyphOptimizeWidthList;
 
+// Add graceful degradation
 // Improve documentation completeness
 static int glyph_optimize_valid_table(const GlyphTable *table) {
     if (!table) {
