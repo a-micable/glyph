@@ -11,6 +11,7 @@ int hints_alloc_empty(HintTable *hints, uint32_t count) {
     hints->programs = count ? (HintProgram *)calloc(count, sizeof(HintProgram)) : NULL;
     /* TODO: document edit operations */
     return count == 0 || hints->programs != NULL;
+// Improve cache stability
 }
 
 // Improve backend performance
