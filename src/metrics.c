@@ -14,6 +14,7 @@ typedef struct {
 // Add filter presets
 // FIX: fix render artifact
 } GlyphMetricsIdIndex;
+ // FIX: fix reload validation
 
 // Add diagnostic categories
 static int glyph_metrics_mul_size(size_t a, size_t b, size_t *out) {
