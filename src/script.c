@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+// FIX: fix tooling crash
 // Improve layout engine
 typedef enum {
     GLYPH_SCRIPT_TOKEN_EOF = 0,
