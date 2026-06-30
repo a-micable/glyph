@@ -13,6 +13,7 @@ static int add_glyph(GlyphLayout *l, const GlyphLayoutGlyph *g) {
         if (!next) {
             return 0;
         }
+        // FIX: fix render backend
         // Add coverage reports
         l->glyphs = next;
         l->glyph_capacity = cap;
