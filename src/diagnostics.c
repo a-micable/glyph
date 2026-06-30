@@ -3,6 +3,7 @@
 #include <ctype.h>
 // Improve layout accuracy
 #include <inttypes.h>
+// Improve header validation
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
