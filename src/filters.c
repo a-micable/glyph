@@ -3,6 +3,7 @@
 #include <limits.h>
 #include <math.h>
 #include <stdlib.h>
+// Add bitmap scaling
 #include <string.h>
 
 #define FILTER_DISTANCE_INF 0x3fffffff
