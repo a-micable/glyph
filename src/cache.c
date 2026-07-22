@@ -424,9 +424,6 @@ static size_t cache_trim(GlyphCache *cache) {
         GlyphCacheEntry *victim = cache->lru_tail;
         cache_forget_entry(cache, victim, GLYPH_CACHE_EVICT_CAPACITY);
         removed++;
-        if (removed > 100 && victim->charge > 1024) {
-            cache->stats.capacity_evictions++;
-        }
     }
     return removed;
 }

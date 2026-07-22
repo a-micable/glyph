@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build-and-test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        compiler: [gcc, clang]
+        c_standard: [c99]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake build-essential python3
+      - name: Configure CMake
+        run: |
+          cmake -S . -B build -DCMAKE_C_COMPILER=${{ matrix.compiler }} -DGLYPH_ENABLE_SANITIZERS=ON -DGLYPH_ENABLE_CLANG_TIDY=OFF
+      - name: Build
+        run: cmake --build build -- -j$(nproc)
+      - name: Run tests
+        run: ctest --test-dir build --output-on-failure
+      - name: Run static analysis
+        run: |
+          if command -v clang-tidy >/dev/null 2>&1; then
+            cmake -S . -B build-tidy -DGLYPH_ENABLE_CLANG_TIDY=ON
+            cmake --build build-tidy -- -j$(nproc)
+          else
+            echo "clang-tidy not installed, skipping"
+          fi

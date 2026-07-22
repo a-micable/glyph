@@ -4,7 +4,6 @@ project(glyph_atlas C)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-find_package(Python3 COMPONENTS Interpreter)
 
 add_library(glyph_core
     src/header.c
@@ -47,10 +46,10 @@ add_executable(module_test tests/module_test.c)
 target_link_libraries(module_test PRIVATE glyph_core)
 add_test(NAME module_test COMMAND module_test)
 
-if(Python3_Interpreter_FOUND)
-    add_custom_target(seed_corpus
-        COMMAND Python3::Interpreter ${CMAKE_CURRENT_SOURCE_DIR}/tests/fixtures/generate_fixtures.py
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        COMMENT "Generating .glyph fixtures and fuzz seed corpus"
-    )
-endif()
+add_executable(generate_fixtures tests/fixtures/generate_fixtures.c)
+target_link_libraries(generate_fixtures PRIVATE glyph_core)
+add_custom_target(seed_corpus
+    COMMAND generate_fixtures
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    COMMENT "Generating .glyph fixtures and fuzz seed corpus"
+)
