@@ -29,6 +29,7 @@ add_library(glyph_core
     src/optimize.c
     src/render_backend.c
     src/script.c
+    src/scene.c
     src/validate.c
     src/tooling.c
 )
@@ -45,6 +46,10 @@ add_test(NAME pack_unpack_test COMMAND pack_unpack_test)
 add_executable(module_test tests/module_test.c)
 target_link_libraries(module_test PRIVATE glyph_core)
 add_test(NAME module_test COMMAND module_test)
+
+add_executable(scene_fuzzer_smoke fuzz/scene_fuzzer.c tests/fuzzer_smoke_driver.c)
+target_link_libraries(scene_fuzzer_smoke PRIVATE glyph_core)
+add_test(NAME scene_fuzzer_smoke COMMAND scene_fuzzer_smoke ${CMAKE_CURRENT_SOURCE_DIR}/fuzz/corpus/scene_fuzzer/basic.scene)
 
 add_executable(generate_fixtures tests/fixtures/generate_fixtures.c)
 target_link_libraries(generate_fixtures PRIVATE glyph_core)

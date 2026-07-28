@@ -58,6 +58,26 @@ void buffer_init(size_t size) {
     }
 }
 
+void buffer_reserve(size_t extra) {
+    uint8_t* next;
+    size_t needed = buffer_pos + extra;
+    size_t next_size = buffer_size ? buffer_size : 256;
+
+    if (needed <= buffer_size) {
+        return;
+    }
+    while (next_size < needed) {
+        next_size *= 2;
+    }
+    next = (uint8_t*)realloc(buffer, next_size);
+    if (!next) {
+        fprintf(stderr, "Failed to grow buffer\n");
+        exit(1);
+    }
+    buffer = next;
+    buffer_size = next_size;
+}
+
 void buffer_free() {
     free(buffer);
     buffer = NULL;
@@ -66,10 +86,7 @@ void buffer_free() {
 }
 
 void buffer_write_u16(uint16_t value) {
-    if (buffer_pos + 2 > buffer_size) {
-        fprintf(stderr, "Buffer overflow\n");
-        exit(1);
-    }
+    buffer_reserve(2);
     buffer[buffer_pos++] = value & 0xFF;
     buffer[buffer_pos++] = (value >> 8) & 0xFF;
 }
@@ -79,10 +96,7 @@ void buffer_write_i16(int16_t value) {
 }
 
 void buffer_write_u32(uint32_t value) {
-    if (buffer_pos + 4 > buffer_size) {
-        fprintf(stderr, "Buffer overflow\n");
-        exit(1);
-    }
+    buffer_reserve(4);
     buffer[buffer_pos++] = value & 0xFF;
     buffer[buffer_pos++] = (value >> 8) & 0xFF;
     buffer[buffer_pos++] = (value >> 16) & 0xFF;
@@ -90,19 +104,13 @@ void buffer_write_u32(uint32_t value) {
 }
 
 void buffer_write_bytes(const uint8_t* data, size_t len) {
-    if (buffer_pos + len > buffer_size) {
-        fprintf(stderr, "Buffer overflow\n");
-        exit(1);
-    }
+    buffer_reserve(len);
     memcpy(buffer + buffer_pos, data, len);
     buffer_pos += len;
 }
 
 void buffer_write_u8(uint8_t value) {
-    if (buffer_pos + 1 > buffer_size) {
-        fprintf(stderr, "Buffer overflow\n");
-        exit(1);
-    }
+    buffer_reserve(1);
     buffer[buffer_pos++] = value;
 }
 
@@ -308,6 +316,43 @@ void write_file(const char* path, uint8_t* data, size_t size) {
     fclose(f);
 }
 
+void write_deep_unpack_seed(const char* path, const uint8_t* data, size_t size, const char* text) {
+    size_t text_len = strlen(text);
+
+    buffer_init(64 + text_len + (8 + size) * 4);
+    buffer_write_bytes((const uint8_t*)"GFZA", 4);
+    buffer_write_u16(4);
+    buffer_write_u16((uint16_t)text_len);
+    buffer_write_bytes((const uint8_t*)text, text_len);
+
+    buffer_write_u8(1);
+    buffer_write_u8(0);
+    buffer_write_u16(0x1001);
+    buffer_write_u32((uint32_t)size);
+    buffer_write_bytes(data, size);
+
+    buffer_write_u8(2);
+    buffer_write_u8(0);
+    buffer_write_u16(0x1002);
+    buffer_write_u32((uint32_t)size);
+    buffer_write_bytes(data, size);
+
+    buffer_write_u8(3);
+    buffer_write_u8(0);
+    buffer_write_u16(0x1003);
+    buffer_write_u32((uint32_t)size);
+    buffer_write_bytes(data, size);
+
+    buffer_write_u8(4);
+    buffer_write_u8(0);
+    buffer_write_u16(0x1004);
+    buffer_write_u32((uint32_t)size);
+    buffer_write_bytes(data, size);
+
+    write_file(path, buffer, buffer_pos);
+    buffer_free();
+}
+
 void mkdir_p(const char* path) {
     char tmp[512];
     char *p = NULL;
@@ -352,7 +397,7 @@ int main() {
         snprintf(path, sizeof(path), "%s/valid_4_no_kern.glyph", fixtures_dir);
         write_file(path, data, size);
         snprintf(path, sizeof(path), "%s/valid_4_no_kern.glyph", unpack_corpus);
-        write_file(path, data, size);
+        write_deep_unpack_seed(path, data, size, "ABCD");
     }
     free(data);
     
@@ -364,7 +409,7 @@ int main() {
         snprintf(path, sizeof(path), "%s/valid_16_sparse_hints.glyph", fixtures_dir);
         write_file(path, data, size);
         snprintf(path, sizeof(path), "%s/valid_16_sparse_hints.glyph", unpack_corpus);
-        write_file(path, data, size);
+        write_deep_unpack_seed(path, data, size, "AVATAR");
     }
     free(data);
     
@@ -376,7 +421,7 @@ int main() {
         snprintf(path, sizeof(path), "%s/valid_64_dense.glyph", fixtures_dir);
         write_file(path, data, size);
         snprintf(path, sizeof(path), "%s/valid_64_dense.glyph", unpack_corpus);
-        write_file(path, data, size);
+        write_deep_unpack_seed(path, data, size, "AABCVA");
     }
     free(data);
     
@@ -388,7 +433,7 @@ int main() {
         snprintf(path, sizeof(path), "%s/valid_128_sparse_hints.glyph", fixtures_dir);
         write_file(path, data, size);
         snprintf(path, sizeof(path), "%s/valid_128_sparse_hints.glyph", unpack_corpus);
-        write_file(path, data, size);
+        write_deep_unpack_seed(path, data, size, "GLYPHVALIDATE");
     }
     free(data);
     

@@ -7,3 +7,4 @@ main_repo: local/glyph-atlas
 targets:
   - unpack_fuzzer
   - kerning_fuzzer
+  - scene_fuzzer

@@ -1,0 +1,14 @@
+scene 180 120
+nodes 3
+node 1 root 0 0 0 180 120 "root"
+node 2 layer 1 0 0 180 120 "handlers"
+node 3 glyph 2 8 8 10 16 "h"
+ops 8
+op register 101 gamma "g1" 3 7
+op dispatch 101 11
+op deregister 101
+op register 202 beta "b2" 9 1
+op promote
+op register 303 alpha "wide" 12 4
+op dispatch 101 19
+op snapshot

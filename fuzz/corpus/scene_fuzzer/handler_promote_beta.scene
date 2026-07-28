@@ -1,0 +1,17 @@
+scene 220 140
+nodes 5
+node 1 root 0 0 0 220 140 "root"
+node 2 layer 1 0 0 220 140 "overlay"
+node 3 group 2 12 12 90 40 "ops"
+node 4 glyph 3 4 4 8 12 "x"
+node 5 glyph 3 15 4 8 12 "y"
+ops 9
+op snapshot
+op register 310 beta "route" 5 2
+op dispatch 310 17
+op deregister 310
+op register 420 gamma "aux" 1 8
+op promote
+op register 530 alpha "larger" 6 6
+op dispatch 310 23
+op serialize

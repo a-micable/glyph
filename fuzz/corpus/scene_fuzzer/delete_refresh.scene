@@ -1,0 +1,14 @@
+scene 192 128
+nodes 6
+node 1 root 0 0 0 192 128 "root"
+node 2 group 1 4 4 160 88 "metrics"
+node 3 layer 2 0 0 120 64 "draft"
+node 4 glyph 3 8 8 8 12 "n"
+node 5 glyph 3 18 8 7 11 "o"
+node 6 group 1 32 44 48 32 "marks"
+ops 5
+op snapshot
+op delete 6
+op snapshot
+op move 5 2 0
+op serialize

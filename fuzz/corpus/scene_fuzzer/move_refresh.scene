@@ -1,0 +1,16 @@
+scene 256 144
+nodes 7
+node 1 root 0 0 0 256 144 "root"
+node 2 layer 1 0 0 256 144 "foreground"
+node 3 layer 1 0 0 256 144 "shadow"
+node 4 group 2 12 8 120 72 "latin"
+node 5 glyph 4 2 3 10 14 "A"
+node 6 glyph 4 14 3 9 14 "V"
+node 7 glyph 3 22 16 11 13 "accent"
+ops 6
+op snapshot
+op move 5 1 0
+op serialize
+op move 6 -1 1
+op snapshot
+op serialize

@@ -1,0 +1,11 @@
+scene 128 96
+nodes 4
+node 1 root 0 0 0 128 96 "root"
+node 2 layer 1 0 0 128 96 "base"
+node 3 group 2 8 8 64 40 "latin"
+node 4 glyph 3 12 4 9 14 "A"
+ops 4
+op snapshot
+op move 4 1 0
+op snapshot
+op serialize
