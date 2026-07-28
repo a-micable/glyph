@@ -81,8 +81,6 @@ static metric_node_t *find_metric(metrics_registry_t registry,
     node->max_value = DBL_MIN;
     node->flags = METRIC_FLAG_ENABLED;
     pthread_mutex_init(&node->lock, NULL);
-    
-    /* Add to bucket */
     node->next = impl->buckets[idx];
     impl->buckets[idx] = node;
     impl->metric_count++;

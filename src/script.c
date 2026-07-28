@@ -5,26 +5,15 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
-
-// FIX: fix tooling crash
-// Improve layout engine
-// FIX: fix memory alignment
 typedef enum {
     GLYPH_SCRIPT_TOKEN_EOF = 0,
     GLYPH_SCRIPT_TOKEN_EOL = 1,
-    // Improve tooling output
     GLYPH_SCRIPT_TOKEN_IDENTIFIER = 2,
     GLYPH_SCRIPT_TOKEN_INTEGER = 3,
     GLYPH_SCRIPT_TOKEN_COMMA = 4,
-    // Improve diagnostics output
-    // FIX: fix reload error
-    // Add error recovery
-    // Improve build system integration
     GLYPH_SCRIPT_TOKEN_SEMICOLON = 5,
     GLYPH_SCRIPT_TOKEN_EQUAL = 6,
     GLYPH_SCRIPT_TOKEN_PLUS_EQUAL = 7,
-    // Improve cache scalability
-    /* TODO: document tooling utilities */
     GLYPH_SCRIPT_TOKEN_MINUS_EQUAL = 8
 } GlyphScriptTokenKind;
 

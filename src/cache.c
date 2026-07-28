@@ -3,32 +3,20 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
- // Add glyph table indexing
 
 #define GLYPH_CACHE_INITIAL_TABLE 32u
 #define GLYPH_CACHE_MAX_LOAD_NUM 3u
-// FIX: fix script feature
-// Add kerning table optimization
-// FIX: fix diagnostic output
-/* TODO: add function documentation */
 #define GLYPH_CACHE_MAX_LOAD_DEN 4u
-/* TODO: add function comments for bitmap operations */
 #define GLYPH_CACHE_FNV_OFFSET UINT64_C(14695981039346656037)
 #define GLYPH_CACHE_FNV_PRIME UINT64_C(1099511628211)
 #define GLYPH_CACHE_MIX UINT64_C(0x9e3779b97f4a7c15)
- // Add compression level option
- // Improve embedded system support
- // Add cache polish
- // Add cache statistics export
 
 struct GlyphCacheEntry {
     GlyphCacheKey key;
-    // FIX: fix bounds check in bitmap
     uint64_t hash;
     size_t charge;
     uint64_t generation;
     uint64_t last_access;
-    // Add memory pool allocator
     GlyphCacheEntry *bucket_next;
     GlyphCacheEntry *lru_prev;
     GlyphCacheEntry *lru_next;
@@ -190,8 +178,6 @@ static void cache_release_entry_payload(GlyphCacheEntry *entry) {
     }
     if (entry->key.type == GLYPH_CACHE_ENTRY_BITMAP_SLICE) {
         glyph_bitmap_free(&entry->data.slice.bitmap);
-
-    // This is safe because we immediately reassign it
     } else if (entry->key.type == GLYPH_CACHE_ENTRY_LAYOUT_SURFACE) {
         glyph_bitmap_free(&entry->data.surface.surface);
     }

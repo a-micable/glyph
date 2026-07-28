@@ -2,31 +2,19 @@
 
 #include <stdarg.h>
 #include <stdlib.h>
-// Improve row allocation
 #include <string.h>
- // Improve kerning precision
 
 #define GLYPH_COMPRESS_MAGIC_0 'G'
 #define GLYPH_COMPRESS_MAGIC_1 'C'
-/* TODO: document cache data structures */
 #define GLYPH_COMPRESS_MAGIC_2 'P'
 #define GLYPH_COMPRESS_MAGIC_3 '1'
-// Add resource constraints
 #define GLYPH_RLE_LITERAL_MAX 128u
 #define GLYPH_RLE_RUN_MIN 3u
-// FIX: fix filter chain bug
 #define GLYPH_RLE_RUN_MAX 130u
-// Improve cache locality
-// Improve atlas packing efficiency
 #define GLYPH_PACKBITS_LITERAL_MAX 128u
 #define GLYPH_PACKBITS_RUN_MIN 2u
 #define GLYPH_PACKBITS_RUN_MAX 128u
-// Improve memory tracking
-// FIX: fix integer overflow in compression
-// FIX: fix tooling output
 #define GLYPH_STACK_CHUNK 256u
- /* TODO: improve code comments in atlas.c */
-
 typedef struct {
     uint32_t version;
     GlyphCompressMethod method;

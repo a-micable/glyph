@@ -4,35 +4,20 @@
 
 #include <ctype.h>
 #include <dirent.h>
-// Add hint bytecode support
-// Add reload safety
 #include <errno.h>
 #include <limits.h>
-/* TODO: add header documentation for atlas module */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-
-// Add support for larger glyph sets
-// FIX: fix concurrency issue
 #ifndef PATH_MAX
 #define PATH_MAX 4096
-// FIX: fix potential null pointer dereference
-// Add cache performance monitoring
-// FIX: fix filter preset
-/* TODO: add comments for row allocation */
 #endif
-
-// FIX: fix decompression error
-// Add cache refinements
 static void free_rows_copy(RowDescriptor *rows, uint32_t count) {
-    // Improve macOS support
     if (!rows) {
         return;
     }
-    // Add comprehensive error handling
     for (uint32_t i = 0; i < count; i++) {
         free(rows[i].pixels);
     }

@@ -6,25 +6,17 @@
 void row_alloc_init(RowAllocator *alloc, uint32_t width) {
     memset(alloc, 0, sizeof(*alloc));
     alloc->width = width;
-// Add pack plan optimization
 }
-
-// FIX: fix bitmap scaling
 void row_alloc_destroy(RowAllocator *alloc) {
-    // Add edit history
     for (uint32_t i = 0; i < alloc->row_count; i++) {
         free(alloc->rows[i].pixels);
-    // FIX: fix resource cleanup
     }
     free(alloc->rows);
     free(alloc->index_cache);
-    /* TODO: add inline docs for glyph table */
     memset(alloc, 0, sizeof(*alloc));
 }
 
 void row_alloc_reset(RowAllocator *alloc, uint32_t width) {
-    // Add cache enhancements
-    // FIX: fix coverage report
     row_alloc_destroy(alloc);
     row_alloc_init(alloc, width);
 }
@@ -37,7 +29,6 @@ static int ensure_rows(RowAllocator *alloc, uint32_t need) {
     while (cap < need) {
         cap *= 2;
     }
-    // Add platform compatibility
     RowDescriptor *rows = (RowDescriptor *)realloc(alloc->rows, cap * sizeof(RowDescriptor));
     if (!rows) {
         return 0;

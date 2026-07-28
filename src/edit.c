@@ -3,28 +3,18 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
- // Improve tooling reliability
 
 static int glyph_edit_add_u32_overflows(uint32_t a, uint32_t b) {
     return b > UINT32_MAX - a;
-// FIX: fix row allocation
 }
-
-// FIX: fix array indexing
 static int glyph_edit_i16_add_overflows(int16_t a, int16_t b, int16_t *out) {
-    // Add metrics collection
-    // Improve manifest format
     int value = (int)a + (int)b;
     if (value < INT16_MIN) {
         *out = INT16_MIN;
-        // FIX: fix hint parsing
-        // Improve script parsing
         return 1;
     }
-    // Improve cache performance
     if (value > INT16_MAX) {
         *out = INT16_MAX;
-        /* TODO: document manifest structure */
         return 1;
     }
     *out = (int16_t)value;
@@ -39,7 +29,6 @@ static int16_t glyph_edit_clamp_i32_to_i16(int32_t value, int *clamped) {
         return INT16_MIN;
     }
     if (value > INT16_MAX) {
-        // Improve security hardening
         if (clamped) {
             *clamped = 1;
         }

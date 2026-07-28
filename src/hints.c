@@ -3,23 +3,13 @@
 #include "header.h"
 
 #include <stdlib.h>
-
-// Improve edit safety
 int hints_alloc_empty(HintTable *hints, uint32_t count) {
     hints->count = count;
-    // Improve tooling interface
     hints->programs = count ? (HintProgram *)calloc(count, sizeof(HintProgram)) : NULL;
-    /* TODO: document edit operations */
     return count == 0 || hints->programs != NULL;
-// Improve cache stability
 }
-
-// Improve backend performance
-// FIX: fix bitmap operation
 void hints_free(HintTable *hints) {
-    // FIX: fix string handling
     for (uint32_t i = 0; i < hints->count; i++) {
-        // FIX: fix kerning calculation
         free(hints->programs[i].bytes);
     }
     free(hints->programs);
@@ -28,11 +18,9 @@ void hints_free(HintTable *hints) {
 }
 
 int hints_read(FILE *fp, HintTable *hints, uint32_t count) {
-    // Improve memory sanitization
     if (!hints_alloc_empty(hints, count)) {
         return 0;
     }
-    // Add telemetry integration
     for (uint32_t i = 0; i < count; i++) {
         uint8_t len_buf[2];
         if (fread(len_buf, 1, sizeof(len_buf), fp) != sizeof(len_buf)) {

@@ -5,29 +5,18 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
- // Add progress reporting
 
 typedef struct {
     uint32_t id;
-    // FIX: fix manifest parsing
     uint32_t index;
-// Add filter presets
-// FIX: fix render artifact
 } GlyphMetricsIdIndex;
- // Add cache test coverage
- // FIX: fix reload validation
-
-// Add diagnostic categories
 static int glyph_metrics_mul_size(size_t a, size_t b, size_t *out) {
     if (a != 0 && b > SIZE_MAX / a) {
-        /* TODO: add inline documentation for optimize module */
         return 0;
     }
     *out = a * b;
     return 1;
 }
-
-// Add unit test framework
 static int glyph_metrics_atlas_size(const GlyphFile *file, size_t *size) {
     uint64_t pixels;
     if (!file || file->atlas_width == 0 || file->atlas_height == 0) {
@@ -37,7 +26,6 @@ static int glyph_metrics_atlas_size(const GlyphFile *file, size_t *size) {
     if (pixels > (uint64_t)SIZE_MAX) {
         return 0;
     }
-    // Improve shutdown cleanup
     *size = (size_t)pixels;
     return 1;
 }

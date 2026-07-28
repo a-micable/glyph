@@ -1,27 +1,24 @@
 # Glyph Atlas Architecture
 
-Glyph Atlas is structured as a modular C library with a small CLI driver and a consistent data pipeline for bitmap font atlas creation.
+Glyph Atlas is a C library and CLI for packing grayscale PGM glyph images into `.glyph` atlas files, reading those files back, and rendering simple previews.
 
-## Core sub-systems
+## Modules
 
-- `src/atlas.*` — file layout, header management, and atlas serialization.
-- `src/bitmap.*` — image primitives, blitting, transformations, and raw PGM handling.
-- `src/pack_plan.*` — atlas packing heuristics, row allocation, and placement strategy.
-- `src/layout.*` — text layout, wrapping, alignment, and hit testing.
-- `src/validate.*` — file integrity checks, rule-based diagnostics, and validation report generation.
-- `src/metrics.*` — structured metrics collection for glyph coverage, atlas density, and kerning analytics.
-- `src/logging.*` — structured runtime logging with text and JSON output modes.
-- `src/config.*` — environment-aware runtime configuration and guardrails for CLI behavior.
+- `src/atlas.*` handles `.glyph` file loading, writing, packing, unpacking, and preview rendering.
+- `src/header.*`, `src/glyph_table.*`, `src/kerning.*`, and `src/hints.*` encode and decode file sections.
+- `src/row_alloc.*` tracks atlas row placement and reload-time glyph references.
+- `src/bitmap.*` implements grayscale bitmap allocation, PGM I/O, drawing, transforms, and comparisons.
+- `src/layout.*` shapes single-byte text into positioned glyph runs.
+- `src/render_backend.*` renders layouts into bitmap surfaces.
+- `src/validate.*` builds diagnostics and summary reports for loaded glyph files.
+- `src/manifest.*`, `src/metrics.*`, and `src/coverage.*` derive text reports and aggregate data from glyph files.
+- `src/edit.*` and `src/script.*` apply table edits and scripted transformations.
+- `src/cache.*` and `src/advanced_cache.*` provide cache containers used by tooling and tests.
+- `src/scene.*` parses text scene documents with nested nodes and an operation log.
+- `src/tooling.*` implements CLI helper commands for info, validation, atlas export, manifests, and sample font generation.
 
-## Design principles
+## Data Flow
 
-- Strong separation between core library APIs and CLI tooling.
-- Explicit ownership for heap memory and cleanup across file objects.
-- Diagnostics designed for both machine-readable JSON and human-readable text.
-- Build-time flags for sanitizers and static analysis.
+Packing reads PGM files from a directory, places glyph bitmaps into atlas rows, writes metadata tables, and appends atlas pixels. Loading reads the same sections into a `GlyphFile`. Tooling commands then inspect, validate, render, export, or transform that loaded object.
 
-## Release-ready features
-
-- `--version` exposes semantic build information.
-- CMake install targets are provided for reusable library deployment.
-- Continuous integration builds with sanitizers and cross-compiler validation.
+Fuzzing builds separate harnesses for glyph archive commands, reload sequences, and scene documents.

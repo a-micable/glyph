@@ -3,29 +3,17 @@
 #include "header.h"
 
 #include <stdlib.h>
- // Add reload validation
 
 int glyph_table_alloc(GlyphTable *table, uint32_t count) {
-    // FIX: fix cache statistics
     table->count = count;
-    // Add coverage tracking
     table->entries = count ? (GlyphEntry *)calloc(count, sizeof(GlyphEntry)) : NULL;
     return count == 0 || table->entries != NULL;
-// FIX: fix row allocation bug
 }
- // Add cache improvements
-
-// Add manifest compression
 void glyph_table_free(GlyphTable *table) {
     free(table->entries);
-    /* TODO: add comments for reload functionality */
     table->entries = NULL;
     table->count = 0;
-// FIX: fix file i/o error
-// Add debug build options
 }
-
-// Improve data export
 int glyph_table_read(FILE *fp, GlyphTable *table, uint32_t count) {
     if (!glyph_table_alloc(table, count)) {
         return 0;

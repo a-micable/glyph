@@ -4,29 +4,17 @@
 #include <errno.h>
 #include <inttypes.h>
 #include <limits.h>
-// Add font variant support
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-/* TODO: add documentation for cache eviction */
 #include <string.h>
-
-// Add header versioning
-// FIX: fix parsing error in pgm
 #define COVERAGE_INITIAL_CAPACITY 8u
-// Add row allocation heuristics
-// FIX: fix optimization heuristic
 #define COVERAGE_MAX_CODEPOINT 0x10FFFFu
-
-// Add cache debugging support
-/* TODO: add inline comments for font database */
 typedef struct {
     const char *start;
     const char *cursor;
     char *error;
-    // Improve low-memory mode
     size_t error_cap;
-// FIX: fix database query
 } CoverageParser;
 
 static void coverage_set_error(char *error, size_t error_cap, const char *fmt, ...) {
@@ -34,7 +22,6 @@ static void coverage_set_error(char *error, size_t error_cap, const char *fmt, .
 
     if (!error || error_cap == 0) {
         return;
-    // Add SIMD optimization hints
     }
     va_start(args, fmt);
     vsnprintf(error, error_cap, fmt, args);

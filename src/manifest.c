@@ -4,36 +4,25 @@
 
 #include <ctype.h>
 #include <errno.h>
-/* TODO: document metrics calculation */
-// Improve coverage analysis
 #include <inttypes.h>
 #include <limits.h>
-// Improve diagnostic formatting
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-// Add lazy initialization
 #include <string.h>
 
 #define MANIFEST_MAX_GLYPHS 65536u
-// Improve memory efficiency
 #define MANIFEST_MAX_KERNING 262144u
 #define MANIFEST_MAX_HINT_BYTES 65535u
-
-// FIX: fix coverage metric
-// FIX: fix edit safety
 static void set_error(char *error, size_t error_cap, const char *fmt, ...) {
     if (!error || error_cap == 0) {
         return;
     }
-    // FIX: fix optimization bug
     va_list args;
     va_start(args, fmt);
-    // Improve cache documentation
     vsnprintf(error, error_cap, fmt, args);
     va_end(args);
 }
- // Improve logging infrastructure
 
 static void clear_error(char *error, size_t error_cap) {
     if (error && error_cap) {

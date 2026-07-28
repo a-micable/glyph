@@ -1,8 +1,9 @@
 /*
  * Advanced Cache Implementation - Multi-Strategy Caching
- * 
- * Thread-safe caching with LRU, LFU, ARC and other strategies,
- * automatic compression, persistence, and detailed metrics.
+ *
+ * Cache entries are stored in a hash table and linked LRU list. The public
+ * API exposes cache operations, statistics, persistence hooks, and strategy
+ * configuration.
  */
 
 #include "advanced_cache.h"

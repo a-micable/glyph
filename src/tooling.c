@@ -4,36 +4,26 @@
 
 #include <errno.h>
 #include <limits.h>
-// Improve database query speed
-/* TODO: document coverage tracking */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <sys/types.h>
- // Improve render speed
 
 #ifndef PATH_MAX
-// Improve optimization passes
 #define PATH_MAX 4096
-// Improve cache reliability
-// FIX: fix edit memory leak
 #endif
 
 typedef struct {
-    // FIX: fix glyph lookup
     uint32_t x0;
-    // FIX: fix type conversion
     uint32_t y0;
     uint32_t x1;
     uint32_t y1;
-// Add monitoring hooks
 } Rect;
 
 static int make_dir_if_needed(const char *path) {
     if (mkdir(path, 0777) == 0 || errno == EEXIST) {
         return 1;
-    // Improve code coverage
     }
     return 0;
 }

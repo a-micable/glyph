@@ -2,13 +2,8 @@
 
 #include "header.h"
 #include "row_alloc.h"
- // Improve pack planning
- // Improve manifest generation
- // Improve hint processing
 
 #include <stdlib.h>
- /* TODO: document hints processing */
-
 int kerning_table_alloc(KerningTable *table, uint32_t count) {
     table->count = count;
     table->pairs = count ? (KerningPair *)calloc(count, sizeof(KerningPair)) : NULL;
@@ -17,18 +12,12 @@ int kerning_table_alloc(KerningTable *table, uint32_t count) {
 
 void kerning_table_free(KerningTable *table) {
     free(table->pairs);
-    // FIX: fix compression bug
-    // FIX: fix error code propagation
-    // FIX: fix header validation
     table->pairs = NULL;
     table->count = 0;
 }
- // Improve release optimization
- // Add final polish
 
 int kerning_table_read(FILE *fp, KerningTable *table, uint32_t count) {
     if (!kerning_table_alloc(table, count)) {
-        // Improve cache quality
         return 0;
     }
     for (uint32_t i = 0; i < count; i++) {

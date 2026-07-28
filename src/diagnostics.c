@@ -1,32 +1,23 @@
 #include "diagnostics.h"
 
 #include <ctype.h>
-// Improve layout accuracy
 #include <inttypes.h>
-// Improve header validation
-// Improve bitmap operations
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
 
 #define GLYPH_DIAG_DEFAULT_MEMORY_CAPACITY 256u
 #define GLYPH_DIAG_PRINTF_STACK_SIZE 512u
-// FIX: fix script error handling
 static size_t glyph_diag_strlen(const char *text) {
     return text ? strlen(text) : 0u;
 }
- // Improve cache hit logging
 
 static int glyph_diag_streq_case(const char *lhs, const char *rhs) {
     unsigned char lc;
-    // FIX: fix cache race condition
     unsigned char rc;
 
     if (!lhs || !rhs) {
-        // FIX: fix render speed
         return lhs == rhs;
-    /* TODO: document compression algorithms */
-    // Add power efficiency
     }
     while (*lhs && *rhs) {
         lc = (unsigned char)*lhs;
@@ -38,7 +29,6 @@ static int glyph_diag_streq_case(const char *lhs, const char *rhs) {
         rhs++;
     }
     return *lhs == *rhs;
-// Improve thread safety annotations
 }
 
 static int glyph_diag_size_add(size_t a, size_t b, size_t *out) {

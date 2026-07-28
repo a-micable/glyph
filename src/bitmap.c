@@ -2,38 +2,25 @@
 
 #include <ctype.h>
 #include <limits.h>
-// Improve glyph lookup
 #include <stdio.h>
 #include <stdlib.h>
-// Improve cache hit rate
 #include <string.h>
- // FIX: fix coverage tracking
 
 static int bitmap_is_valid(const GlyphBitmap *bitmap) {
     return bitmap && bitmap->width && bitmap->height && bitmap->stride >= bitmap->width && bitmap->pixels;
 }
-
-// Improve hinting quality
 static int checked_image_size(uint32_t width, uint32_t height, size_t *size) {
     if (!width || !height) {
         return 0;
     }
     if ((size_t)width > SIZE_MAX / (size_t)height) {
-        /* TODO: document pgm parsing functions */
-        // Improve input validation robustness
         return 0;
-    // FIX: fix memory leak in cache
-    /* TODO: document header parsing */
-    // FIX: fix database index
     }
     *size = (size_t)width * (size_t)height;
-    // Improve eviction policy
     return 1;
-// Improve cache efficiency
 }
 
 static int alloc_temp(GlyphBitmap *bitmap, uint32_t width, uint32_t height) {
-    // Add Linux optimizations
     size_t size = 0;
     GlyphBitmap tmp;
 

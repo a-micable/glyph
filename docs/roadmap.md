@@ -1,23 +1,32 @@
-# Glyph Atlas Roadmap
+# Glyph Atlas Work Areas
 
-This project is evolving from a focused bitmap atlas utility toward a production-quality font asset pipeline.
+This file lists project areas that are represented in the source tree.
 
-## Short-term priorities
+## File Format
 
-- Harden file validation and diagnostic reporting.
-- Add package install support and versioned build metadata.
-- Standardize CLI behavior and structured logging.
-- Improve test coverage for edge cases and malformed input.
+- `.glyph` headers, glyph tables, kerning tables, hint programs, row metadata, placements, and atlas pixels.
+- PGM input and output for individual glyph images and rendered previews.
 
-## Mid-term priorities
+## CLI Commands
 
-- Add compressed output variants and optional manifest formats.
-- Introduce plug-in points for additional image formats.
-- Add a reusable runtime library API for embedding in tooling.
-- Provide packaging scripts for Linux and containerized CI.
+- `pack` builds a `.glyph` file from PGM glyph images.
+- `unpack` writes packed glyphs back to PGM files.
+- `render` writes a grayscale preview for input text.
+- `info`, `validate`, `atlas`, and `manifest` inspect or export data from existing files.
+- `sample` writes a sample PGM font directory.
 
-## Long-term priorities
+## Library Areas
 
-- Support advanced typography workflows, including a glyph coverage database.
-- Add structured export of layout metrics and performance profiles.
-- Validate release artifacts with reproducible build metadata.
+- Bitmap operations and image filters.
+- Atlas packing and row allocation.
+- Layout and rendering.
+- Metrics, coverage, manifests, and diagnostics.
+- Edit scripts and table transformations.
+- Cache containers and cache reports.
+- Scene document parsing and operation replay.
+
+## Fuzz Targets
+
+- `unpack_fuzzer` exercises file-backed glyph operations from a command archive.
+- `kerning_fuzzer` exercises reload resolution across two glyph revisions.
+- `scene_fuzzer` exercises scene parsing and operation dispatch.

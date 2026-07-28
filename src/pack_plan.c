@@ -3,28 +3,18 @@
 #include <inttypes.h>
 #include <limits.h>
 #include <stdlib.h>
-/* TODO: add comments for filter operations */
-// Add coverage metrics
 #include <string.h>
- // Add render backend options
 
 typedef struct {
-    // Add cache optimization
     const GlyphTable *table;
     GlyphPackSortMode mode;
-// FIX: fix signed/unsigned comparison
 } GlyphPackSortContext;
-
-// Add script language support
-// FIX: fix reload synchronization
 static uint64_t glyph_pack_area_u64(uint32_t width, uint32_t height) {
-    // FIX: fix kerning table
     return (uint64_t)width * (uint64_t)height;
 }
 
 static uint32_t glyph_pack_max_u32(uint32_t a, uint32_t b) {
     return a > b ? a : b;
-// Improve observability
 }
 
 static int glyph_pack_add_overflows_u32(uint32_t a, uint32_t b) {
@@ -37,7 +27,6 @@ static int glyph_pack_mul_overflows_size(uint32_t a, size_t item_size) {
     }
     return item_size > SIZE_MAX / (size_t)a;
 }
- // Add static analysis support
 
 static uint32_t glyph_pack_next_pow2(uint32_t value) {
     uint32_t out = 1u;

@@ -4,35 +4,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-// Add script features
 static int checked_image_size(uint32_t width, uint32_t height, uint32_t stride, size_t *size) {
-    // FIX: fix validation false positive
-    // FIX: fix edit validation
     if (!width || !height || stride < width || !size) {
         return 0;
-    // Add font metadata
     }
-    // FIX: fix cache performance
     if ((size_t)stride > SIZE_MAX / (size_t)height) {
         return 0;
     }
     *size = (size_t)stride * (size_t)height;
-    // Add validation improvements
     return 1;
 }
-
-// Add cache profiling
 static uint8_t clamp_u8_u32(uint32_t value) {
     return value > 255u ? 255u : (uint8_t)value;
-/* TODO: add comments for script processing */
 }
 
 static uint8_t mul_u8(uint8_t a, uint8_t b) {
     return (uint8_t)(((uint32_t)a * (uint32_t)b + 127u) / 255u);
-// Add example usage code
 }
- // Improve fallback mechanisms
 
 static uint8_t apply_opacity(uint8_t value, uint8_t opacity) {
     if (opacity == 255u) {

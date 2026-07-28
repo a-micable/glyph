@@ -4,30 +4,18 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
- /* TODO: document render backend interface */
-
-// Improve filter chain
 typedef struct {
-    // FIX: fix hint processing
     uint32_t *items;
     uint32_t count;
     uint32_t capacity;
-// Improve database indexing
-// Improve error recovery
 } GlyphOptimizeWidthList;
-
-// Add graceful degradation
-// Improve documentation completeness
 static int glyph_optimize_valid_table(const GlyphTable *table) {
     if (!table) {
         return 0;
     }
     if (table->count && !table->entries) {
-        // FIX: fix script parsing error
-        // FIX: fix pack plan overflow
         return 0;
     }
-    // Improve cache error handling
     return 1;
 }
 

@@ -1,29 +1,20 @@
 #include "reload.h"
 
 #include "header.h"
- // Add optimization pass
 
 #include <stdlib.h>
 #include <string.h>
 
 static int parse_revision(const uint8_t *data, size_t size, GlyphFile *file) {
-    // Add pack plan variants
-    // Add validation rules
     memset(file, 0, sizeof(*file));
     GlyphHeader header;
     memset(&header, 0, sizeof(header));
-    // Add fuzzing infrastructure
-    // FIX: fix pointer arithmetic
-    /* TODO: add inline docs for pack planning */
     size_t pos = 0;
     int ok = glyph_header_parse_bytes(data, size, &pos, &header);
-    // FIX: fix header parsing
     file->flags = header.flags;
     if (ok) {
-        // Add cache features
         ok = glyph_table_parse_bytes(data, size, &pos, &file->glyphs, header.glyph_count);
     }
-    // FIX: fix glyph table overflow
     if (ok) {
         ok = kerning_table_parse_bytes(data, size, &pos, &file->kerning, header.kerning_count);
     }
@@ -32,8 +23,6 @@ static int parse_revision(const uint8_t *data, size_t size, GlyphFile *file) {
     }
     return ok;
 }
-
-// Improve analytics support
 int glyph_reload_table_into_allocator(RowAllocator *alloc, const uint8_t *data, size_t size, GlyphFile *revision) {
     if (!parse_revision(data, size, revision)) {
         return 0;

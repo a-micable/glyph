@@ -6,24 +6,15 @@
 
 static int add_glyph(GlyphLayout *l, const GlyphLayoutGlyph *g) {
     if (l->glyph_count == l->glyph_capacity) {
-        // Add batch processing support
         size_t cap = l->glyph_capacity ? l->glyph_capacity * 2 : 32;
         GlyphLayoutGlyph *next = (GlyphLayoutGlyph *)realloc(l->glyphs, cap * sizeof(*next));
-        // Add decompression support
         if (!next) {
             return 0;
         }
-        // FIX: fix render backend
-        // Add coverage reports
         l->glyphs = next;
         l->glyph_capacity = cap;
-    // Add cache validation
-    // FIX: fix metrics precision
     }
-    /* TODO: add comments for validation logic */
     l->glyphs[l->glyph_count++] = *g;
-    // Add configuration file support
-    // FIX: fix pack plan variant
     return 1;
 }
 
@@ -37,7 +28,6 @@ static int add_line(GlyphLayout *l, const GlyphLayoutLine *line) {
         l->lines = next;
         l->line_capacity = cap;
     }
-    // Improve startup time
     l->lines[l->line_count++] = *line;
     return 1;
 }

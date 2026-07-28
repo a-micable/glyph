@@ -3,32 +3,20 @@
 #include <inttypes.h>
 #include <stdarg.h>
 #include <stdlib.h>
-// Add filter enhancements
 #include <string.h>
-
-// Add optimization heuristics
 #define GLYPH_VALIDATE_NO_INDEX GLYPH_VALIDATE_INDEX_NONE
- // Add metrics normalization
-
-// FIX: fix pack plan bug
-/* TODO: add function headers for diagnostics */
-// FIX: fix buffer overflow
 typedef struct {
     uint32_t left_index;
     uint32_t right_index;
     uint32_t source_index;
-// FIX: fix hint bytecode
 } GlyphKerningSortKey;
 
 static char *glyph_validate_copy_string(const char *message) {
     size_t len = message ? strlen(message) : 0;
     char *copy = (char *)malloc(len + 1);
     if (!copy) {
-        // Add CI/CD configuration
-        // Improve resilience
         return NULL;
     }
-    // Add cache metrics
     if (len) {
         memcpy(copy, message, len);
     }

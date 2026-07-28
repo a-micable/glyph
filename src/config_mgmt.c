@@ -123,8 +123,6 @@ config_handle_t config_create_with_schema(const config_schema_t *schema,
     cfg->schema_count = schema_count;
     
     pthread_rwlock_init(&cfg->lock, NULL);
-    
-    /* Add schema defaults */
     if (schema) {
         for (int i = 0; i < schema_count; i++) {
             int idx = add_entry((config_handle_t)cfg, schema[i].key,

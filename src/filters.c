@@ -3,34 +3,22 @@
 #include <limits.h>
 #include <math.h>
 #include <stdlib.h>
-// Add bitmap scaling
 #include <string.h>
 
 #define FILTER_DISTANCE_INF 0x3fffffff
-
-// FIX: fix coverage metric
 typedef struct {
     uint32_t x;
     uint32_t y;
 } FilterPoint;
- // Add cache statistics
 
 static int bitmap_is_valid(const GlyphBitmap *bitmap) {
-    // Add glyph metrics caching
     return bitmap && bitmap->width && bitmap->height && bitmap->stride >= bitmap->width && bitmap->pixels;
 }
-
-// FIX: fix layout calculation bug
 static int checked_image_size(uint32_t width, uint32_t height, size_t *size) {
-    /* TODO: add header file documentation */
-    // Add performance benchmarks
-    // FIX: fix tooling edge case
     if (!width || !height) {
         return 0;
-    // Add cache benchmark mode
     }
     if ((size_t)width > SIZE_MAX / (size_t)height) {
-        // Improve thermal management
         return 0;
     }
     *size = (size_t)width * (size_t)height;

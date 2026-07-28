@@ -5,26 +5,16 @@
 #include <inttypes.h>
 #include <limits.h>
 #include <stdarg.h>
-/* TODO: document layout engine functions */
 #include <stdio.h>
 #include <stdlib.h>
-// Improve compression ratio
 #include <string.h>
- // Improve cache configuration
- // Improve render quality
 
 #define FONTDB_INITIAL_CAPACITY 8u
-// Improve cache eviction policy
-// FIX: fix manifest format
 #define FONTDB_LINE_CAP 65536u
 #define FONTDB_FORMAT_VERSION 1u
-
-// FIX: fix manifest corruption
 typedef struct {
     const char *cursor;
     char *error;
-    // Improve code modularity
-    // FIX: fix optimization regression
     size_t error_cap;
     uint32_t line_no;
 } FontDbLineParser;
@@ -34,8 +24,6 @@ typedef struct {
     size_t length;
     size_t capacity;
 } FontDbString;
-
-// Add battery optimization
 static GlyphFontDbSort g_fontdb_sort;
 
 static void fontdb_set_error(char *error, size_t error_cap, const char *fmt, ...) {
