@@ -152,6 +152,26 @@ static void cache_copy_key_bytes(GlyphCacheKey *key, const void *data, size_t si
     key->byte_count = copy;
 }
 
+static void cache_set_key_file_owner(GlyphCacheKey *key, const GlyphFile *file) {
+    uintptr_t ptr = (uintptr_t)file;
+
+    if (!key) {
+        return;
+    }
+    memset(key->bytes, 0, sizeof(key->bytes));
+    cache_copy_key_bytes(key, &ptr, sizeof(ptr));
+}
+
+static const GlyphFile *cache_key_file_owner(const GlyphCacheKey *key) {
+    uintptr_t ptr = 0;
+
+    if (!key || key->byte_count < sizeof(ptr)) {
+        return NULL;
+    }
+    memcpy(&ptr, key->bytes, sizeof(ptr));
+    return (const GlyphFile *)ptr;
+}
+
 static int cache_copy_bitmap(GlyphBitmap *dst, const GlyphBitmap *src) {
     uint32_t y;
     GlyphBitmap tmp;
@@ -196,9 +216,11 @@ static void cache_entry_view(const GlyphCacheEntry *entry, GlyphCacheEntryView *
     if (entry->key.type == GLYPH_CACHE_ENTRY_FILE) {
         view->file = entry->data.file.file;
     } else if (entry->key.type == GLYPH_CACHE_ENTRY_BITMAP_SLICE) {
+        view->file = entry->data.slice.file;
         view->bitmap = &entry->data.slice.bitmap;
         view->rect = &entry->data.slice.rect;
     } else if (entry->key.type == GLYPH_CACHE_ENTRY_LAYOUT_SURFACE) {
+        view->file = entry->data.surface.file;
         view->bitmap = &entry->data.surface.surface;
         view->layout_options = &entry->data.surface.options;
         view->origin_x = entry->data.surface.origin_x;
@@ -443,12 +465,14 @@ static void cache_seed_entry_views(GlyphCacheEntry *entry) {
         entry->data.slice.charge = entry->charge;
         entry->data.slice.generation = entry->generation;
         entry->data.slice.last_access = entry->last_access;
+        entry->data.slice.file = cache_key_file_owner(&entry->key);
     } else if (entry->key.type == GLYPH_CACHE_ENTRY_LAYOUT_SURFACE) {
         entry->data.surface.key = &entry->key;
         entry->data.surface.type = entry->key.type;
         entry->data.surface.charge = entry->charge;
         entry->data.surface.generation = entry->generation;
         entry->data.surface.last_access = entry->last_access;
+        entry->data.surface.file = cache_key_file_owner(&entry->key);
     }
 }
 
@@ -539,10 +563,14 @@ static int cache_entry_payload_valid(const GlyphCacheEntry *entry) {
         return entry->data.file.file != NULL;
     }
     if (entry->key.type == GLYPH_CACHE_ENTRY_BITMAP_SLICE) {
-        return cache_bitmap_is_valid(&entry->data.slice.bitmap);
+        return entry->data.slice.file != NULL &&
+               entry->data.slice.file == cache_key_file_owner(&entry->key) &&
+               cache_bitmap_is_valid(&entry->data.slice.bitmap);
     }
     if (entry->key.type == GLYPH_CACHE_ENTRY_LAYOUT_SURFACE) {
-        return cache_bitmap_is_valid(&entry->data.surface.surface);
+        return entry->data.surface.file != NULL &&
+               entry->data.surface.file == cache_key_file_owner(&entry->key) &&
+               cache_bitmap_is_valid(&entry->data.surface.surface);
     }
     return 0;
 }
@@ -683,7 +711,7 @@ GlyphCacheKey glyph_cache_key_file_pointer(const GlyphFile *file, uint32_t varia
     key.primary = glyph_cache_hash_bytes(&ptr, sizeof(ptr), GLYPH_CACHE_FNV_OFFSET);
     key.secondary = (uint64_t)variant;
     key.a = variant;
-    cache_copy_key_bytes(&key, &ptr, sizeof(ptr));
+    cache_set_key_file_owner(&key, file);
     return key;
 }
 
@@ -709,7 +737,7 @@ GlyphCacheKey glyph_cache_key_bitmap_slice(const GlyphFile *file,
     key.b = rect.y;
     key.c = rect.width;
     key.d = rect.height ^ variant;
-    cache_copy_key_bytes(&key, &ptr, sizeof(ptr));
+    cache_set_key_file_owner(&key, file);
     return key;
 }
 
@@ -738,11 +766,7 @@ GlyphCacheKey glyph_cache_key_layout_surface(const GlyphFile *file,
     key.b = height;
     key.c = (uint32_t)origin_x;
     key.d = (uint32_t)origin_y;
-    if (text) {
-        cache_copy_key_bytes(&key, text, strlen(text));
-    } else {
-        cache_copy_key_bytes(&key, &ptr, sizeof(ptr));
-    }
+    cache_set_key_file_owner(&key, file);
     return key;
 }
 
@@ -1137,6 +1161,10 @@ size_t glyph_cache_remove_file(GlyphCache *cache, const GlyphFile *file) {
         GlyphCacheEntry *next = entry->lru_next;
         int match = 0;
         if (entry->key.type == GLYPH_CACHE_ENTRY_FILE && entry->data.file.file == file) {
+            match = 1;
+        } else if (entry->key.type == GLYPH_CACHE_ENTRY_BITMAP_SLICE && entry->data.slice.file == file) {
+            match = 1;
+        } else if (entry->key.type == GLYPH_CACHE_ENTRY_LAYOUT_SURFACE && entry->data.surface.file == file) {
             match = 1;
         }
         if (match) {

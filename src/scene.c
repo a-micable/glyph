@@ -85,12 +85,26 @@ typedef struct {
 } SceneHandlerRoute;
 
 typedef struct {
+    uint32_t id;
+    uint32_t slot_index;
+    SceneHandlerType expected_type;
+    uint32_t generation;
+} SceneHandlerAuditItem;
+
+typedef struct {
+    SceneHandlerAuditItem *items;
+    uint32_t count;
+    uint32_t capacity;
+} SceneHandlerAuditPlan;
+
+typedef struct {
     SceneHandlerSlot *slots;
     uint32_t slot_count;
     uint32_t slot_capacity;
     SceneHandlerRoute *routes;
     uint32_t route_count;
     uint32_t route_capacity;
+    SceneHandlerAuditPlan audit;
     uint32_t schema_generation;
 } SceneHandlerRegistry;
 
@@ -142,6 +156,7 @@ static void scene_handler_registry_free(SceneHandlerRegistry *registry) {
     }
     free(registry->slots);
     free(registry->routes);
+    free(registry->audit.items);
     memset(registry, 0, sizeof(*registry));
 }
 
@@ -316,6 +331,9 @@ static int scene_add_node(GlyphScene *scene, SceneNode *node) {
     if (scene_find_node(scene, node->id)) {
         return 0;
     }
+    if (node->type == SCENE_NODE_ROOT && scene->root) {
+        return 0;
+    }
     if (scene->node_count == scene->node_capacity) {
         next_capacity = scene->node_capacity ? scene->node_capacity * 2 : 8;
         next = (SceneNode **)realloc(scene->nodes, (size_t)next_capacity * sizeof(*next));
@@ -327,12 +345,37 @@ static int scene_add_node(GlyphScene *scene, SceneNode *node) {
     }
     scene->nodes[scene->node_count++] = node;
     if (node->type == SCENE_NODE_ROOT) {
-        if (scene->root) {
-            return 0;
-        }
         scene->root = node;
     }
     return 1;
+}
+
+static void scene_remove_node_ref(GlyphScene *scene, SceneNode *node) {
+    for (uint32_t i = 0; i < scene->node_count; i++) {
+        if (scene->nodes[i] == node) {
+            memmove(&scene->nodes[i], &scene->nodes[i + 1], (size_t)(scene->node_count - i - 1) * sizeof(scene->nodes[i]));
+            scene->node_count--;
+            break;
+        }
+    }
+    if (scene->root == node) {
+        scene->root = NULL;
+    }
+}
+
+static void scene_detach_child(SceneNode *parent, const SceneNode *child) {
+    if (!parent || !child) {
+        return;
+    }
+    for (uint32_t i = 0; i < parent->child_count; i++) {
+        if (parent->children[i] == child) {
+            memmove(&parent->children[i],
+                    &parent->children[i + 1],
+                    (size_t)(parent->child_count - i - 1) * sizeof(parent->children[i]));
+            parent->child_count--;
+            return;
+        }
+    }
 }
 
 static int scene_parse_node(SceneParser *parser, GlyphScene *scene) {
@@ -364,15 +407,21 @@ static int scene_parse_node(SceneParser *parser, GlyphScene *scene) {
         scene_node_free(node);
         return 0;
     }
+    if (node->parent_id != 0) {
+        parent = scene_find_node(scene, node->parent_id);
+        if (!parent || parent->type == SCENE_NODE_GLYPH) {
+            scene_node_free(node);
+            return 0;
+        }
+    }
     if (!scene_add_node(scene, node)) {
         scene_node_free(node);
         return 0;
     }
-    if (node->parent_id != 0) {
-        parent = scene_find_node(scene, node->parent_id);
-        if (!parent || parent->type == SCENE_NODE_GLYPH || !scene_node_add_child(parent, node)) {
-            return 0;
-        }
+    if (node->parent_id != 0 && !scene_node_add_child(parent, node)) {
+        scene_remove_node_ref(scene, node);
+        scene_node_free(node);
+        return 0;
     }
     return 1;
 }
@@ -459,16 +508,49 @@ static int scene_move_node(GlyphScene *scene, uint32_t id, int32_t dx, int32_t d
 }
 
 static int scene_delete_node(GlyphScene *scene, uint32_t id) {
+    SceneNode *node = scene_find_node(scene, id);
+    SceneNode *parent;
+    uint8_t remove[256];
+    uint32_t out = 0;
+    int changed;
+
+    if (!node || node == scene->root) {
+        return 0;
+    }
+    memset(remove, 0, sizeof(remove));
     for (uint32_t i = 0; i < scene->node_count; i++) {
-        if (scene->nodes[i] && scene->nodes[i]->id == id && scene->nodes[i] != scene->root) {
-            scene_node_free(scene->nodes[i]);
-            memmove(&scene->nodes[i], &scene->nodes[i + 1], (size_t)(scene->node_count - i - 1) * sizeof(scene->nodes[i]));
-            scene->node_count--;
-            scene->revision++;
-            return 1;
+        if (scene->nodes[i] == node) {
+            remove[i] = 1;
+            break;
         }
     }
-    return 0;
+    do {
+        changed = 0;
+        for (uint32_t i = 0; i < scene->node_count; i++) {
+            if (!remove[i] && scene->nodes[i]) {
+                for (uint32_t j = 0; j < scene->node_count; j++) {
+                    if (remove[j] && scene->nodes[j] && scene->nodes[i]->parent_id == scene->nodes[j]->id) {
+                        remove[i] = 1;
+                        changed = 1;
+                        break;
+                    }
+                }
+            }
+        }
+    } while (changed);
+
+    parent = scene_find_node(scene, node->parent_id);
+    scene_detach_child(parent, node);
+    for (uint32_t i = 0; i < scene->node_count; i++) {
+        if (remove[i]) {
+            scene_node_free(scene->nodes[i]);
+        } else {
+            scene->nodes[out++] = scene->nodes[i];
+        }
+    }
+    scene->node_count = out;
+    scene->revision++;
+    return 1;
 }
 
 static SceneHandlerType scene_parse_handler_type(const char *word) {
@@ -512,6 +594,19 @@ static int scene_handler_registry_grow_routes(SceneHandlerRegistry *registry) {
     return 1;
 }
 
+static int scene_handler_audit_grow(SceneHandlerAuditPlan *audit) {
+    SceneHandlerAuditItem *next;
+    uint32_t next_capacity = audit->capacity ? audit->capacity * 2 : 8;
+
+    next = (SceneHandlerAuditItem *)realloc(audit->items, (size_t)next_capacity * sizeof(*next));
+    if (!next) {
+        return 0;
+    }
+    audit->items = next;
+    audit->capacity = next_capacity;
+    return 1;
+}
+
 static SceneHandlerSlot *scene_handler_find_active_slot(SceneHandlerRegistry *registry, uint32_t id, uint32_t *slot_index) {
     for (uint32_t i = 0; i < registry->slot_count; i++) {
         SceneHandlerSlot *slot = &registry->slots[i];
@@ -551,6 +646,14 @@ static int scene_handler_cache_route(SceneHandlerRegistry *registry,
     route->expected_type = type;
     route->valid = 1;
     return 1;
+}
+
+static void scene_handler_invalidate_route(SceneHandlerRegistry *registry, uint32_t id) {
+    SceneHandlerRoute *route = scene_handler_find_route(registry, id);
+
+    if (route) {
+        route->valid = 0;
+    }
 }
 
 static void *scene_handler_alloc(SceneHandlerType type, const char *label, uint32_t a, uint32_t b) {
@@ -650,6 +753,7 @@ static int scene_handler_deregister(SceneHandlerRegistry *registry, uint32_t id)
     if (!slot) {
         return 0;
     }
+    scene_handler_invalidate_route(registry, id);
     slot->state = SCENE_HANDLER_PENDING_FREE;
     return 1;
 }
@@ -709,6 +813,10 @@ static int scene_handler_dispatch_cached(SceneHandlerRegistry *registry,
     if (slot->state != SCENE_HANDLER_ACTIVE || !slot->handler) {
         return 0;
     }
+    if (slot->id != route->id || slot->type != route->expected_type) {
+        route->valid = 0;
+        return 0;
+    }
     *out = scene_handler_apply_as(slot, route->expected_type, value);
     return 1;
 }
@@ -729,6 +837,60 @@ static int scene_handler_dispatch(SceneHandlerRegistry *registry, uint32_t id, u
         return 0;
     }
     *out = scene_handler_apply_as(slot, slot->type, value);
+    return 1;
+}
+
+static int scene_handler_audit_capture(SceneHandlerRegistry *registry, uint32_t id) {
+    SceneHandlerSlot *slot;
+    SceneHandlerAuditItem *item;
+    uint32_t slot_index = 0;
+
+    slot = scene_handler_find_active_slot(registry, id, &slot_index);
+    if (!slot) {
+        return 0;
+    }
+    if (registry->audit.count == registry->audit.capacity && !scene_handler_audit_grow(&registry->audit)) {
+        return 0;
+    }
+    item = &registry->audit.items[registry->audit.count++];
+    item->id = id;
+    item->slot_index = slot_index;
+    item->expected_type = slot->type;
+    item->generation = registry->schema_generation;
+    return 1;
+}
+
+static int scene_handler_audit_replay_item(SceneHandlerRegistry *registry,
+                                           const SceneHandlerAuditItem *item,
+                                           uint32_t value,
+                                           uint32_t *out) {
+    SceneHandlerSlot *slot;
+
+    if (item->slot_index >= registry->slot_count) {
+        return 0;
+    }
+    slot = &registry->slots[item->slot_index];
+    if (slot->state != SCENE_HANDLER_ACTIVE || !slot->handler) {
+        return 0;
+    }
+    if (slot->id != item->id ||
+        slot->type != item->expected_type ||
+        item->generation != registry->schema_generation) {
+        return 0;
+    }
+    *out ^= scene_handler_apply_as(slot, item->expected_type, value + item->id + item->generation);
+    return 1;
+}
+
+static int scene_handler_audit_replay(SceneHandlerRegistry *registry, uint32_t value, uint32_t *out) {
+    if (!registry->audit.count) {
+        return 0;
+    }
+    for (uint32_t i = 0; i < registry->audit.count; i++) {
+        if (!scene_handler_audit_replay_item(registry, &registry->audit.items[i], value + i, out)) {
+            return 0;
+        }
+    }
     return 1;
 }
 
@@ -756,7 +918,7 @@ static int scene_export_write_node(const SceneNode *node, uint32_t depth, uint32
 }
 
 static SceneNode *scene_export_resolve_entry(const GlyphScene *scene, const SceneExportItem *item) {
-    if (item->node_index >= scene->node_count) {
+    if (item->revision != scene->revision || item->node_index >= scene->node_count) {
         return NULL;
     }
     return scene->nodes[item->node_index];
@@ -801,6 +963,12 @@ static int scene_apply_snapshot(GlyphScene *scene) {
 }
 
 static int scene_apply_serialize(GlyphScene *scene) {
+    if (scene->export_plan.count == 0 ||
+        scene->export_plan.items[0].revision != scene->revision) {
+        if (!scene_export_refresh_plan(scene)) {
+            return 0;
+        }
+    }
     return scene_export_emit(scene);
 }
 
@@ -845,6 +1013,17 @@ static int scene_dispatch_command(SceneParser *parser, GlyphScene *scene, const 
         if (!scene_read_u32(parser, &id) ||
             !scene_read_u32(parser, &a) ||
             !scene_handler_dispatch(&scene->handlers, id, a, &out)) {
+            return 0;
+        }
+        scene->revision ^= out;
+        return 1;
+    }
+    if (strcmp(op, "audit") == 0) {
+        return scene_read_u32(parser, &id) && scene_handler_audit_capture(&scene->handlers, id);
+    }
+    if (strcmp(op, "replay") == 0) {
+        if (!scene_read_u32(parser, &a) ||
+            !scene_handler_audit_replay(&scene->handlers, a, &out)) {
             return 0;
         }
         scene->revision ^= out;

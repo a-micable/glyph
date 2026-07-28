@@ -1,8 +1,11 @@
 #include "bitmap.h"
+#include "cache.h"
 #include "edit.h"
 #include "layout.h"
 #include "manifest.h"
 #include "pack_plan.h"
+#include "row_alloc.h"
+#include "scene.h"
 #include "validate.h"
 
 #include <stdio.h>
@@ -295,6 +298,133 @@ static void test_edit_operations(void) {
     glyph_file_free(&file);
 }
 
+static void test_row_alloc_reload_refreshes_cache(void) {
+    GlyphTable first;
+    GlyphTable second;
+    RowAllocator alloc;
+    uint32_t x = 0;
+    uint32_t y = 0;
+
+    memset(&first, 0, sizeof(first));
+    memset(&second, 0, sizeof(second));
+    row_alloc_init(&alloc, 16);
+    check_int("row place a", row_alloc_place(&alloc, 4, 4, &x, &y));
+    check_int("row place b", row_alloc_place(&alloc, 4, 4, &x, &y));
+    check_int("row table first", glyph_table_alloc(&first, 2));
+    first.entries[0].id = 10;
+    first.entries[0].width = 4;
+    first.entries[0].height = 4;
+    first.entries[0].bitmap_offset = 0;
+    first.entries[1].id = 11;
+    first.entries[1].width = 4;
+    first.entries[1].height = 4;
+    first.entries[1].bitmap_offset = 4;
+    check_int("row cache first", row_alloc_cache_glyphs(&alloc, &first));
+    check_int("row cache first id", row_alloc_cached_glyph(&alloc, 0)->id == 10);
+
+    check_int("row table second", glyph_table_alloc(&second, 1));
+    second.entries[0].id = 99;
+    second.entries[0].width = 4;
+    second.entries[0].height = 4;
+    second.entries[0].bitmap_offset = 0;
+    glyph_table_free(&first);
+    check_int("row reload second", row_alloc_reload_without_full_reset(&alloc, &second));
+    check_int("row cache second count", row_alloc_cached_glyph(&alloc, 1) == NULL);
+    check_int("row cache second id", row_alloc_cached_glyph(&alloc, 0)->id == 99);
+
+    glyph_table_free(&second);
+    row_alloc_destroy(&alloc);
+}
+
+static void test_scene_lifecycle_documents(void) {
+    const char delete_parent[] =
+        "scene 64 64\n"
+        "nodes 4\n"
+        "node 1 root 0 0 0 64 64 \"root\"\n"
+        "node 2 group 1 0 0 32 32 \"parent\"\n"
+        "node 3 group 2 1 1 16 16 \"child\"\n"
+        "node 4 glyph 3 2 2 8 8 \"leaf\"\n"
+        "ops 3\n"
+        "op snapshot\n"
+        "op delete 2\n"
+        "op serialize\n";
+    const char stale_audit[] =
+        "scene 64 64\n"
+        "nodes 1\n"
+        "node 1 root 0 0 0 64 64 \"root\"\n"
+        "ops 7\n"
+        "op register 7 alpha \"old\" 1 2\n"
+        "op audit 7\n"
+        "op deregister 7\n"
+        "op promote\n"
+        "op register 9 beta \"new\" 3 4\n"
+        "op replay 5\n"
+        "op snapshot\n";
+    const char live_audit[] =
+        "scene 64 64\n"
+        "nodes 1\n"
+        "node 1 root 0 0 0 64 64 \"root\"\n"
+        "ops 4\n"
+        "op register 7 alpha \"old\" 1 2\n"
+        "op audit 7\n"
+        "op replay 5\n"
+        "op snapshot\n";
+
+    check_int("scene delete parent subtree",
+              glyph_scene_run_document((const uint8_t *)delete_parent, strlen(delete_parent)) == GLYPH_SCENE_RESULT_OK);
+    check_int("scene live audit replay",
+              glyph_scene_run_document((const uint8_t *)live_audit, strlen(live_audit)) == GLYPH_SCENE_RESULT_OK);
+    check_int("scene stale audit rejects reused slot",
+              glyph_scene_run_document((const uint8_t *)stale_audit, strlen(stale_audit)) == GLYPH_SCENE_RESULT_REJECT);
+}
+
+static void test_cache_file_invalidation_removes_dependents(void) {
+    GlyphFile file;
+    GlyphCache cache;
+    GlyphCacheKey file_key;
+    GlyphCacheKey slice_key;
+    GlyphCacheKey surface_key;
+    GlyphBitmap bitmap;
+    GlyphBitmapRect rect;
+    GlyphLayoutOptions options;
+    GlyphCacheValidationReport report;
+    size_t removed;
+
+    make_file(&file);
+    glyph_cache_init(&cache);
+    glyph_bitmap_init(&bitmap);
+    rect.x = 0;
+    rect.y = 0;
+    rect.width = 4;
+    rect.height = 4;
+    glyph_layout_options_default(&options);
+
+    check_int("cache create", glyph_cache_create(&cache, 16, 4096));
+    check_int("cache bitmap alloc", glyph_bitmap_alloc(&bitmap, 4, 4));
+    glyph_bitmap_fill(&bitmap, 77);
+
+    file_key = glyph_cache_key_file_pointer(&file, 1);
+    slice_key = glyph_cache_key_bitmap_slice(&file, 65, rect, 2);
+    surface_key = glyph_cache_key_layout_surface(&file, "AV", &options, 16, 8, 1, 2);
+    check_int("cache insert file", glyph_cache_insert_file(&cache, &file_key, &file));
+    check_int("cache insert slice", glyph_cache_insert_bitmap_slice(&cache, &slice_key, 65, rect, &bitmap));
+    check_int("cache insert surface", glyph_cache_insert_layout_surface(&cache, &surface_key, &options, 1, 2, &bitmap));
+    check_int("cache validate before remove", glyph_cache_validate(&cache, &report));
+    check_int("cache has three entries", glyph_cache_entry_count(&cache) == 3);
+
+    removed = glyph_cache_remove_file(&cache, &file);
+    check_int("cache remove file dependents", removed == 3);
+    check_int("cache empty after owner invalidation", glyph_cache_entry_count(&cache) == 0);
+    check_int("cache byte count reset", glyph_cache_byte_count(&cache) == 0);
+    check_int("cache validate after remove", glyph_cache_validate(&cache, &report));
+    check_int("cache slice gone", !glyph_cache_contains(&cache, &slice_key));
+    check_int("cache surface gone", !glyph_cache_contains(&cache, &surface_key));
+
+    glyph_bitmap_free(&bitmap);
+    glyph_cache_free(&cache);
+    glyph_file_free(&file);
+}
+
 int main(void) {
     test_bitmap_basic();
     test_bitmap_transforms();
@@ -302,6 +432,9 @@ int main(void) {
     test_layout_and_validation();
     test_manifest_selection();
     test_edit_operations();
+    test_row_alloc_reload_refreshes_cache();
+    test_scene_lifecycle_documents();
+    test_cache_file_invalidation_removes_dependents();
     if (failures) {
         fprintf(stderr, "%d module test failure(s)\n", failures);
         return 1;

@@ -1,5 +1,6 @@
 #include "row_alloc.h"
 
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -40,7 +41,7 @@ static int ensure_rows(RowAllocator *alloc, uint32_t need) {
 }
 
 int row_alloc_place(RowAllocator *alloc, uint32_t width, uint32_t height, uint32_t *x, uint32_t *y) {
-    if (width == 0 || height == 0 || width > alloc->width) {
+    if (!alloc || !x || !y || width == 0 || height == 0 || width > alloc->width) {
         return 0;
     }
     for (uint32_t i = 0; i < alloc->row_count; i++) {
@@ -70,7 +71,12 @@ int row_alloc_place(RowAllocator *alloc, uint32_t width, uint32_t height, uint32
 }
 
 int row_alloc_cache_glyphs(RowAllocator *alloc, GlyphTable *table) {
-    CachedGlyphRef *cache = table->count ? (CachedGlyphRef *)calloc(table->count, sizeof(CachedGlyphRef)) : NULL;
+    CachedGlyphRef *cache;
+
+    if (!alloc || !table) {
+        return 0;
+    }
+    cache = table->count ? (CachedGlyphRef *)calloc(table->count, sizeof(CachedGlyphRef)) : NULL;
     if (table->count && !cache) {
         return 0;
     }
@@ -108,10 +114,28 @@ uint8_t row_alloc_cached_probe(const RowAllocator *alloc, uint32_t index) {
 }
 
 int row_alloc_reload_without_full_reset(RowAllocator *alloc, GlyphTable *table) {
-    for (uint32_t i = 0; i < alloc->row_count; i += 2) {
-        free(alloc->rows[i].pixels);
-        alloc->rows[i].pixels = (uint8_t *)malloc((size_t)alloc->width * (alloc->rows[i].height ? alloc->rows[i].height : 1));
+    if (!alloc || !table) {
+        return 0;
     }
-    (void)table;
-    return 1;
+    free(alloc->index_cache);
+    alloc->index_cache = NULL;
+    alloc->cached_count = 0;
+
+    for (uint32_t i = 0; i < alloc->row_count; i += 2) {
+        size_t row_size;
+        uint32_t height = alloc->rows[i].height ? alloc->rows[i].height : 1;
+        uint8_t *pixels;
+
+        if (alloc->width && height > SIZE_MAX / alloc->width) {
+            return 0;
+        }
+        row_size = (size_t)alloc->width * height;
+        pixels = row_size ? (uint8_t *)calloc(row_size, 1) : NULL;
+        if (row_size && !pixels) {
+            return 0;
+        }
+        free(alloc->rows[i].pixels);
+        alloc->rows[i].pixels = pixels;
+    }
+    return row_alloc_cache_glyphs(alloc, table);
 }

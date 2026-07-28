@@ -89,6 +89,7 @@ typedef struct {
     size_t charge;
     uint64_t generation;
     uint64_t last_access;
+    const GlyphFile *file;
     uint32_t glyph_id;
     GlyphBitmapRect rect;
     GlyphBitmap bitmap;
@@ -100,6 +101,7 @@ typedef struct {
     size_t charge;
     uint64_t generation;
     uint64_t last_access;
+    const GlyphFile *file;
     GlyphLayoutOptions options;
     int32_t origin_x;
     int32_t origin_y;

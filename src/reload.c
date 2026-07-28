@@ -61,6 +61,12 @@ int glyph_reload_sequence_resolve(const uint8_t *first, size_t first_size, const
         row_alloc_destroy(&alloc);
         return 0;
     }
+    if (!row_alloc_cache_glyphs(&alloc, &new_rev.glyphs)) {
+        glyph_file_free(&new_rev);
+        glyph_file_free(&old_rev);
+        row_alloc_destroy(&alloc);
+        return 0;
+    }
     int total = 0;
     for (uint32_t i = 0; i < new_rev.glyphs.count; i++) {
         for (uint32_t j = 0; j < new_rev.glyphs.count; j++) {
